@@ -8,14 +8,14 @@ import java.util.UUID;
 @Embeddable
 public class CustomerSecurityQuestionsId implements Serializable {
 
-    private UUID customerId;
+    private String customerId;
 
     private UUID securityQuestionId;
 
     public CustomerSecurityQuestionsId() {
     }
 
-    public UUID getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
@@ -23,7 +23,7 @@ public class CustomerSecurityQuestionsId implements Serializable {
         return securityQuestionId;
     }
 
-    public CustomerSecurityQuestionsId(UUID customerId, UUID securityQuestionId) {
+    public CustomerSecurityQuestionsId(String customerId, UUID securityQuestionId) {
         this.customerId = customerId;
         this.securityQuestionId = securityQuestionId;
     }

@@ -1,55 +1,56 @@
-//package com.mob.casestudy.digitalbanking.services;
-//
-//import com.mob.casestudy.digitalbanking.dtos.CustomerSecurityImagesDto;
-//import com.mob.casestudy.digitalbanking.entities.Customer;
-//import com.mob.casestudy.digitalbanking.entities.SecurityImages;
-//import org.assertj.core.api.Assertions;
-//import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.extension.ExtendWith;
-//import org.mockito.InjectMocks;
-//import org.mockito.Mock;
-//import org.mockito.Mockito;
-//import org.mockito.junit.jupiter.MockitoExtension;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//
-//import java.time.LocalDateTime;
-//import java.util.UUID;
-//
-//import static org.junit.jupiter.api.Assertions.*;
-//
-//@ExtendWith(MockitoExtension.class)
-//class CustomerSecurityImageServicesTest {
-//
-//    @InjectMocks
-//    CustomerSecurityImageServices customerSecurityImageServices;
-//
-//    @Mock
-//    ValidationServices validationServices;
-//
-//    @Test
-//    void storeImages() {
-//
-//        String userName = "UzairKhan2706";
-//
-//        UUID id = UUID.randomUUID();
-//
-//        Customer customer = new Customer("UzairKhan2706", "Uzair", "Khan", "7226803020", "uzairkhan27@gmail.com",
-//                Customer.CustomerStatus.ACTIVE, Customer.CustomerPreferredLanguage.EN, "42069", "Me", LocalDateTime.now(), "Again Me", LocalDateTime.now());
-//
-//        CustomerSecurityImagesDto customerSecurityImagesDto = new CustomerSecurityImagesDto(id,"POR FAVOR");
-//
-//        SecurityImages images = new SecurityImages("Pagani","pagani/here");
-//
-//        Mockito.when(validationServices.validateCustomer(userName)).thenReturn(customer);
-//
-//        Mockito.when(validationServices.validateImageId(id)).thenReturn(images);
-//
-//        Mockito.verify(validationServices).validateCustomer(userName);
-//        Mockito.verify(validationServices).validateImageId(id);
-//
-////        Mockito.verify(customerSecurityImagesRepo).save(Mockito.any());
-//
-//
-//    }
-//}
+package com.mob.casestudy.digitalbanking.services;
+
+import com.mob.casestudy.digitalbanking.dtos.CustomerSecurityImagesDto;
+import com.mob.casestudy.digitalbanking.entities.Customer;
+import com.mob.casestudy.digitalbanking.entities.SecurityImages;
+import com.mob.casestudy.digitalbanking.helpers.ValidationHelper;
+import com.mob.casestudy.digitalbanking.repositories.CustomerSecurityImagesRepo;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import javax.persistence.EntityManager;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@ExtendWith(MockitoExtension.class)
+class CustomerSecurityImageServicesTest {
+
+    @InjectMocks
+    CustomerSecurityImageServices customerSecurityImageServices;
+
+    @Mock
+    ValidationHelper validationHelper;
+
+    @Mock
+    CustomerSecurityImagesRepo customerSecurityImagesRepo;
+
+    @Mock
+    EntityManager entityManager;
+
+    @Test
+    void storeImages() {
+
+        String userName = "UzairKhan2706";
+
+        UUID id = UUID.randomUUID();
+
+        Customer customer = Customer.builder().userName("UzairKhan2706").firstName("Uzair").lastName("Khan").phoneNumber("7226803020").email("uzairkhan27@gmail.com").status(Customer.CustomerStatus.ACTIVE)
+                .preferredLanguage(Customer.CustomerPreferredLanguage.EN).externalId("42069").createdBy("Me").createdOn(LocalDateTime.now()).updatedBy("Again Me").updatedOn(LocalDateTime.now()).build();
+
+        CustomerSecurityImagesDto customerSecurityImagesDto = new CustomerSecurityImagesDto(id.toString(),"POR FAVOR");
+        SecurityImages images = new SecurityImages("Pagani","pagani/here");
+
+        Mockito.when(validationHelper.validateCustomer(userName)).thenReturn(customer);
+        Mockito.when(validationHelper.validateImageId(customerSecurityImagesDto.getSecurityImageId())).thenReturn(images);
+
+        customerSecurityImageServices.storeImages(userName,customerSecurityImagesDto);
+
+        Mockito.verify(validationHelper).validateCustomer(userName);
+        Mockito.verify(validationHelper).validateImageId(customerSecurityImagesDto.getSecurityImageId());
+        Mockito.verify(customerSecurityImagesRepo).save(Mockito.any());
+    }
+}

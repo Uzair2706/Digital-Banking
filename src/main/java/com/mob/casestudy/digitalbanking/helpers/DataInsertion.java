@@ -86,8 +86,8 @@ public class DataInsertion {
 
         List<SecurityImages> list = new ArrayList<>();
 
-        SecurityImages images = securityImagesRepo.save(new SecurityImages("Pagani","pagani/here"));
-        SecurityImages images1 = securityImagesRepo.save(new SecurityImages("Koenigsegg","nothing/here"));
+        SecurityImages images = securityImagesRepo.save(new SecurityImages("Shelby","pagani/here"));
+        SecurityImages images1 = securityImagesRepo.save(new SecurityImages("GT","nothing/here"));
 
         list.add(images);
         list.add(images1);
@@ -97,7 +97,7 @@ public class DataInsertion {
     public void setImagesForCustomer(Customer customer, List<SecurityImages> questions) {
 
 
-        CustomerSecurityImages customerSecurityImages = new CustomerSecurityImages("Porsche 911",LocalDateTime.now());
+        CustomerSecurityImages customerSecurityImages = new CustomerSecurityImages("Ford",LocalDateTime.now());
 
         customerSecurityImages.setCustomer(customer);
         customerSecurityImages.setSecurityImages(questions.get(0));

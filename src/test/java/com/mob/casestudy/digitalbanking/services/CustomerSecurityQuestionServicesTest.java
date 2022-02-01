@@ -30,7 +30,7 @@ class CustomerSecurityQuestionServicesTest {
     ValidationHelper validationHelper;
 
     @Test
-    void retrieveQuestions() {
+    void retrieveQuestions_withCorrectUserName_willReturnCustomerSecurityQuestions() {
 
         Customer customer = Customer.builder().customerSecurityQuestions(new ArrayList<>()).userName("UzairKhan2706").firstName("Uzair").lastName("Khan").phoneNumber("7226803020").email("uzairkhan27@gmail.com").status(Customer.CustomerStatus.ACTIVE)
                 .preferredLanguage(Customer.CustomerPreferredLanguage.EN).externalId("42069").createdBy("Me").createdOn(LocalDateTime.now()).updatedBy("Again Me").updatedOn(LocalDateTime.now()).build();

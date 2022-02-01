@@ -1,6 +1,7 @@
-package com.mob.casestudy.digitalbanking.exceptions;
+package com.mob.casestudy.digitalbanking.exceptionhandlers;
 
 import com.mob.casestudy.digitalbanking.constants.Constants;
+import com.mob.casestudy.digitalbanking.exceptions.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -5,7 +5,6 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 public class SecurityImages {
@@ -14,7 +13,7 @@ public class SecurityImages {
     @Column(length = 36)
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private UUID id;
+    private String id;
 
     @Column(length = 50)
     private String securityImageName;
@@ -33,17 +32,17 @@ public class SecurityImages {
         this.securityImageUrl = securityImageUrl;
     }
 
-    public SecurityImages(UUID id, String securityImageName, String securityImageUrl) {
+    public SecurityImages(String id, String securityImageName, String securityImageUrl) {
         this.id = id;
         this.securityImageName = securityImageName;
         this.securityImageUrl = securityImageUrl;
     }
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -73,5 +72,14 @@ public class SecurityImages {
 
     public void removeCustomerSecurityImages(CustomerSecurityImages customerSecurityImages) {
         this.customerSecurityImages.remove(customerSecurityImages);
+    }
+
+    @Override
+    public String toString() {
+        return "SecurityImages{" +
+                "id='" + id + '\'' +
+                ", securityImageName='" + securityImageName + '\'' +
+                ", securityImageUrl='" + securityImageUrl + '\'' +
+                '}';
     }
 }

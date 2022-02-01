@@ -14,23 +14,21 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Component
 public class ValidationHelper {
 
-    //TODO: Keep the Component annotation rather than Service
     @Autowired
     CustomerRepo customerRepo;
     @Autowired
     SecurityImagesRepo securityImagesRepo;
 
     public Customer validateUser(String userName) {
-        Optional<Customer> byUserName = customerRepo.findByUserName(userName);
-        if (byUserName.isEmpty()) {
+        Optional<Customer> customer = customerRepo.findByUserName(userName);
+        if (customer.isEmpty()) {
             throw new CustomerNotFoundException(Constants.USER_NOT_VALID,"The username '" + userName + "' is not registered with the system");
         }
-        return byUserName.get();
+        return customer.get();
     }
 
     public void validateQuestions(List<CustomerSecurityQuestions> customerSecurityQuestions) {
@@ -41,17 +39,17 @@ public class ValidationHelper {
 
 
     public Customer validateCustomer(String userName) {
-        Optional<Customer> byUserName = customerRepo.findByUserName(userName);
-        if (byUserName.isEmpty()) {
+        Optional<Customer> customer = customerRepo.findByUserName(userName);
+        if (customer.isEmpty()) {
             throw new CustomerNotFoundException(Constants.CUSTOMER_NOT_VALID,"The username '" + userName + "' is not registered with the system");
         }
-        return byUserName.get();
+        return customer.get();
     }
 
-    public SecurityImages validateImageId(UUID id) {
+    public SecurityImages validateImageId(String id) {
         Optional<SecurityImages> byId = securityImagesRepo.findById(id);
-        if (byId.isEmpty()) {
-            throw new SecurityImageIdException("User not validated");
+        if (!byId.isPresent()) {
+            throw new SecurityImageIdException("Security Image Id not validated");
         }
         return byId.get();
     }

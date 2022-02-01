@@ -8,7 +8,7 @@ import java.util.UUID;
 @Embeddable
 public class CustomerOtpId implements Serializable {
 
-    private UUID customerId;
+    private String customerId;
 
     private UUID otpId;
 
@@ -16,12 +16,12 @@ public class CustomerOtpId implements Serializable {
         otpId = UUID.randomUUID();
     }
 
-    public CustomerOtpId(UUID customerId, UUID otpId) {
+    public CustomerOtpId(String customerId, UUID otpId) {
         this.customerId = customerId;
         this.otpId = otpId;
     }
 
-    public UUID getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 

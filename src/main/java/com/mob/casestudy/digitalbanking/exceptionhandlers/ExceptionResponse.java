@@ -1,4 +1,4 @@
-package com.mob.casestudy.digitalbanking.exceptions;
+package com.mob.casestudy.digitalbanking.exceptionhandlers;
 
 public class ExceptionResponse {
 

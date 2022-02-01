@@ -2,15 +2,17 @@ package com.mob.casestudy.digitalbanking.services;
 
 import com.mob.casestudy.digitalbanking.dtos.CustomerSecurityQuestionsDto;
 import com.mob.casestudy.digitalbanking.dtos.GetSecurityQuestionsResponse;
-import com.mob.casestudy.digitalbanking.entities.*;
+import com.mob.casestudy.digitalbanking.entities.Customer;
+import com.mob.casestudy.digitalbanking.entities.CustomerSecurityQuestions;
 import com.mob.casestudy.digitalbanking.helpers.ValidationHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-public class CustomerSecurityQuestionServices {
+public class CustomerOtpServices {
 
     @Autowired
     ValidationHelper validationHelper;

@@ -1,37 +1,39 @@
 package com.mob.casestudy.digitalbanking.embeddables;
 
+import lombok.Builder;
+
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.UUID;
 
 @Embeddable
+@Builder
 public class CustomerSecurityImagesId implements Serializable {
 
-    private UUID customerId;
+    private String customerId;
 
-    private UUID securityImageId;
+    private String securityImageId;
 
     public CustomerSecurityImagesId() {
     }
 
-    public UUID getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(UUID customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
 
-    public UUID getSecurityImageId() {
+    public String getSecurityImageId() {
         return securityImageId;
     }
 
-    public void setSecurityImageId(UUID securityImageId) {
+    public void setSecurityImageId(String securityImageId) {
         this.securityImageId = securityImageId;
     }
 
-    public CustomerSecurityImagesId(UUID customerId, UUID securityImageId) {
+    public CustomerSecurityImagesId(String customerId, String securityImageId) {
         this.customerId = customerId;
         this.securityImageId = securityImageId;
     }

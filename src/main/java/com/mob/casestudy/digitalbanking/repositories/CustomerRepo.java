@@ -6,11 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
 @Transactional
-public interface CustomerRepo extends JpaRepository<Customer, UUID> {
+public interface CustomerRepo extends JpaRepository<Customer, String> {
 
     Optional<Customer> findByUserName(String userName);
 

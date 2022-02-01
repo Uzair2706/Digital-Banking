@@ -2,11 +2,17 @@ package com.mob.casestudy.digitalbanking.entities;
 
 import com.mob.casestudy.digitalbanking.dtos.CustomerSecurityImagesDto;
 import com.mob.casestudy.digitalbanking.embeddables.CustomerSecurityImagesId;
+import lombok.AllArgsConstructor;
+
+import lombok.Builder;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Builder
+@AllArgsConstructor
 public class CustomerSecurityImages {
 
     @EmbeddedId
@@ -16,6 +22,7 @@ public class CustomerSecurityImages {
     private String securityImageCaption;
 
     @Column(length = 50)
+    @CreationTimestamp
     private LocalDateTime createdOn;
 
     @OneToOne

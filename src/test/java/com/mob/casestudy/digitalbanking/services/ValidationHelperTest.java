@@ -89,16 +89,16 @@ class ValidationHelperTest {
     @Test
     void validateImageId_withCorrectId_shouldValidateImageId() {
 
-        Mockito.when(securityImagesRepo.findById(byId)).thenReturn(Optional.ofNullable(securityImages));
-        validationHelper.validateImageId(byId);
-        Mockito.verify(securityImagesRepo).findById(byId);
+        Mockito.when(securityImagesRepo.findById(byId.toString())).thenReturn(Optional.ofNullable(securityImages));
+        validationHelper.validateImageId(byId.toString());
+        Mockito.verify(securityImagesRepo).findById(byId.toString());
     }
 
     @Test
     void validateImageId_withNoImageId_shouldThrowAnException(){
 
-        Mockito.when(securityImagesRepo.findById(byId)).thenReturn(Optional.ofNullable(noId));
-        Assertions.assertThrows(SecurityImageIdException.class,()-> validationHelper.validateImageId(byId));
+        Mockito.when(securityImagesRepo.findById(byId.toString())).thenReturn(Optional.ofNullable(noId));
+        Assertions.assertThrows(SecurityImageIdException.class,()-> validationHelper.validateImageId(byId.toString()));
 
     }
 
