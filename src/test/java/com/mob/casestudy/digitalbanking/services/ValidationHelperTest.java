@@ -37,14 +37,10 @@ class ValidationHelperTest {
 
     String byUserName = "UzairKhan2706";
 
-    UUID byId = UUID.randomUUID();
-
     Customer customer = Customer.builder().userName("UzairKhan2706").firstName("Uzair").lastName("Khan").phoneNumber("7226803020").email("uzairkhan27@gmail.com").status(Customer.CustomerStatus.ACTIVE)
             .preferredLanguage(Customer.CustomerPreferredLanguage.EN).externalId("42069").createdBy("Me").createdOn(LocalDateTime.now()).updatedBy("Again Me").updatedOn(LocalDateTime.now()).build();
 
-    SecurityImages securityImages = new SecurityImages("Pagani","pagani/here");
-
-    SecurityImages noId;
+    SecurityImages securityImages = SecurityImages.builder().securityImageName("Shelby").securityImageUrl("www.shelby_motors.com").build();
 
     Customer noCustomer;
 
@@ -89,6 +85,8 @@ class ValidationHelperTest {
     @Test
     void validateImageId_withCorrectId_shouldValidateImageId() {
 
+        UUID byId = UUID.randomUUID();
+
         Mockito.when(securityImagesRepo.findById(byId.toString())).thenReturn(Optional.ofNullable(securityImages));
         validationHelper.validateImageId(byId.toString());
         Mockito.verify(securityImagesRepo).findById(byId.toString());
@@ -97,8 +95,10 @@ class ValidationHelperTest {
     @Test
     void validateImageId_withNoImageId_shouldThrowAnException(){
 
-        Mockito.when(securityImagesRepo.findById(byId.toString())).thenReturn(Optional.ofNullable(noId));
-        Assertions.assertThrows(SecurityImageIdException.class,()-> validationHelper.validateImageId(byId.toString()));
+        String byId = UUID.randomUUID().toString();
+
+        Mockito.when(securityImagesRepo.findById(byId)).thenReturn(Optional.empty());
+        Assertions.assertThrows(SecurityImageIdException.class,()-> validationHelper.validateImageId(byId));
 
     }
 

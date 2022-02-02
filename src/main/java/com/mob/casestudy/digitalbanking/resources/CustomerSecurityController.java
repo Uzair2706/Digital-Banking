@@ -1,6 +1,8 @@
 package com.mob.casestudy.digitalbanking.resources;
 
-import com.mob.casestudy.digitalbanking.dtos.CustomerSecurityImagesDto;
+import com.mob.casestudy.digitalbanking.dtos.CustomerOtpDto;
+import com.mob.casestudy.digitalbanking.dtos.CreateCustomerSecurityImageRequest;
+import com.mob.casestudy.digitalbanking.services.CustomerOtpServices;
 import com.mob.casestudy.digitalbanking.services.CustomerSecurityImageServices;
 import com.mob.casestudy.digitalbanking.services.CustomerSecurityQuestionServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ public class CustomerSecurityController {
     CustomerSecurityQuestionServices customerSecurityQuestionServices;
     @Autowired
     CustomerSecurityImageServices customerSecurityImageServices;
+    @Autowired
+    CustomerOtpServices customerOtpServices;
 
     @GetMapping("/client-api/v1/customers/{userName}")
     public ResponseEntity<Object> retrieveQuestionsByUserName(@PathVariable String userName) {
@@ -27,8 +31,14 @@ public class CustomerSecurityController {
     }
 
     @PutMapping("/client-api/v1/customers/{userName}")
-    public ResponseEntity<Object> storeCustomerSecurityImagesByUserName(@PathVariable String userName, @Valid @RequestBody CustomerSecurityImagesDto customerSecurityImagesDto) {
-        customerSecurityImageServices.storeImages(userName, customerSecurityImagesDto);
+    public ResponseEntity<Object> storeCustomerSecurityImagesByUserName(@PathVariable String userName, @Valid @RequestBody CreateCustomerSecurityImageRequest createCustomerSecurityImageRequest) {
+        customerSecurityImageServices.storeImages(userName,createCustomerSecurityImageRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PostMapping("/client-api/v1/otp/initiate")
+    public ResponseEntity<Object> otpInitiation(@RequestBody CustomerOtpDto customerOtpDto) {
+        customerOtpServices.initiateOtp(customerOtpDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

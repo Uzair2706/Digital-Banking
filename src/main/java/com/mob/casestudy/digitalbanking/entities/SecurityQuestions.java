@@ -1,13 +1,18 @@
 package com.mob.casestudy.digitalbanking.entities;
 
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class SecurityQuestions {
 
     @Id
@@ -24,39 +29,7 @@ public class SecurityQuestions {
     @OneToMany(mappedBy = "securityQuestions")
     private List<CustomerSecurityQuestions> customerSecurityQuestions = new ArrayList<>();
 
-    public SecurityQuestions() {
-    }
-
-    public SecurityQuestions(String securityQuestionText) {
-        this.securityQuestionText = securityQuestionText;
-    }
-
-    public SecurityQuestions(UUID id, String securityQuestionText) {
-        this.id = id;
-        this.securityQuestionText = securityQuestionText;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getSecurityQuestionText() {
-        return securityQuestionText;
-    }
-
-    public void setSecurityQuestionText(String securityQuestionText) {
-        this.securityQuestionText = securityQuestionText;
-    }
-
-    public List<CustomerSecurityQuestions> getCustomerSecurityQuestions() {
-        return customerSecurityQuestions;
-    }
-
-    public void setCustomerSecurityQuestions(CustomerSecurityQuestions customerSecurityQuestions) {
+    public void addCustomerSecurityQuestions(CustomerSecurityQuestions customerSecurityQuestions) {
         this.customerSecurityQuestions.add(customerSecurityQuestions);
     }
 

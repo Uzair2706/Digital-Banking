@@ -1,13 +1,14 @@
 package com.mob.casestudy.digitalbanking.dtos;
 
 import com.mob.casestudy.digitalbanking.constants.Constants;
+import lombok.Builder;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
-public class CustomerSecurityImagesDto {
+@Builder
+public class CreateCustomerSecurityImageRequest {
 
     @NotNull(message = Constants.FIELD_NOT_FOUND_DESCRIPTION)
     private String securityImageId;
@@ -17,12 +18,12 @@ public class CustomerSecurityImagesDto {
     @Size(min = 3,message = Constants.CAPTION_SIZE_NOT_VALID_DESCRIPTION)
     private String securityImageCaption ;
 
-    public CustomerSecurityImagesDto(String securityImageId, String securityImageCaption) {
+    public CreateCustomerSecurityImageRequest(String securityImageId, String securityImageCaption) {
         this.securityImageId = securityImageId;
         this.securityImageCaption = securityImageCaption;
     }
 
-    public CustomerSecurityImagesDto() {
+    public CreateCustomerSecurityImageRequest() {
     }
 
     public String getSecurityImageId() {

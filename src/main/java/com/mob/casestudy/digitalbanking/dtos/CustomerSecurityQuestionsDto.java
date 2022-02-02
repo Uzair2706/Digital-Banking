@@ -1,6 +1,10 @@
 package com.mob.casestudy.digitalbanking.dtos;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Getter
+@NoArgsConstructor
 public class CustomerSecurityQuestionsDto {
 
     private String securityQuestionId;
@@ -11,20 +15,5 @@ public class CustomerSecurityQuestionsDto {
         this.securityQuestionId = securityQuestionId;
         this.securityQuestionText = securityQuestionText;
         this.securityQuestionAnswer = securityQuestionAnswer;
-    }
-
-    public CustomerSecurityQuestionsDto() {
-    }
-
-    public String getSecurityQuestionId() {
-        return securityQuestionId;
-    }
-
-    public String getSecurityQuestionText() {
-        return securityQuestionText;
-    }
-
-    public String getSecurityQuestionAnswer() {
-        return securityQuestionAnswer;
     }
 }

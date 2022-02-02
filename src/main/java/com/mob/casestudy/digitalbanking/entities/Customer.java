@@ -1,9 +1,7 @@
 package com.mob.casestudy.digitalbanking.entities;
 
-
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -93,14 +91,6 @@ public class Customer {
 
     public void setCustomerSecurityImages(CustomerSecurityImages customerSecurityImages) {
         this.customerSecurityImages = customerSecurityImages;
-    }
-
-    public CustomerOtp getCustomerOtp() {
-        return customerOtp;
-    }
-
-    public void setCustomerOtp(CustomerOtp customerOtp) {
-        this.customerOtp = customerOtp;
     }
 
 }

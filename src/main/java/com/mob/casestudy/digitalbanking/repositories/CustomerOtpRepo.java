@@ -11,5 +11,4 @@ import javax.transaction.Transactional;
 @Transactional
 public interface CustomerOtpRepo extends JpaRepository<CustomerOtp,CustomerOtpId> {
 
-
 }

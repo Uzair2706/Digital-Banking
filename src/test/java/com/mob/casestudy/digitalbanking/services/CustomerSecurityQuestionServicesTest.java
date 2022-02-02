@@ -37,11 +37,10 @@ class CustomerSecurityQuestionServicesTest {
 
         String userName = "UzairKhan2706";
 
-        SecurityQuestions securityQuestions = new SecurityQuestions(UUID.randomUUID(),"Favorite Show?");
+        SecurityQuestions securityQuestions = SecurityQuestions.builder().id(UUID.randomUUID()).securityQuestionText("Favorite Show?").build();
         CustomerSecurityQuestionsId customerSecurityQuestionsId = new CustomerSecurityQuestionsId();
 
-        CustomerSecurityQuestions customerSecurityQuestions =
-                new CustomerSecurityQuestions(customerSecurityQuestionsId,"The-Office", LocalDateTime.now());
+        CustomerSecurityQuestions customerSecurityQuestions = CustomerSecurityQuestions.builder().customerSecurityQuestionsId(customerSecurityQuestionsId).securityQuestionAnswer("The-Office").createdOn(LocalDateTime.now()).build();
 
         customerSecurityQuestions.setSecurityQuestions(securityQuestions);
 
