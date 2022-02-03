@@ -24,7 +24,8 @@ public class CustomerSecurityImageServices {
     EntityManager entityManager;
 
     @Transactional
-    public void storeImages(String userName, CreateCustomerSecurityImageRequest createCustomerSecurityImageRequest){
+    public void storeImages(String userName,CreateCustomerSecurityImageRequest createCustomerSecurityImageRequest){
+
 
         Customer customer = validationHelper.validateCustomer(userName,Constants.CUSTOMER_NOT_VALID);
         CustomerSecurityImages images = customer.getCustomerSecurityImages();
@@ -41,7 +42,7 @@ public class CustomerSecurityImageServices {
     private void deleteStoredImage(CustomerSecurityImages images) {
         if(images !=null) {
             customerSecurityImagesRepo.delete(images);
-            entityManager.flush();
+            customerSecurityImagesRepo.flush();
         }
         entityManager.clear();
     }

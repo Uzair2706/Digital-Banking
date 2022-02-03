@@ -34,11 +34,11 @@ public class CustomerOtpServices {
     private CustomerOtp getCustomerOtp(Customer customer,String templateId) {
         CustomerOtp customerOtp = customer.getCustomerOtp();
         String otp = generateOtp();
-        return customerOtp.withOtp(otp).withCustomer(customer).withOtpMessage(forDefault(templateId,otp))
+        return customerOtp.withOtp(otp).withCustomer(customer).withOtpMessage(otpMessage(templateId,otp))
                 .withCreatedOn(LocalDateTime.now()).withExpiryOn(LocalDateTime.now().plusMinutes(5));
     }
 
-    private String forDefault(String templateId,String otp) {
+    private String otpMessage(String templateId, String otp) {
         if(templateId==null || templateId.isEmpty()) return "Your OTP is " + otp;
         else if(templateId.equalsIgnoreCase("REGISTRATION")) return "OTP for the Registration is " + otp;
         else if (templateId.equalsIgnoreCase("LOGIN")) return "OTP for the Login is " + otp;

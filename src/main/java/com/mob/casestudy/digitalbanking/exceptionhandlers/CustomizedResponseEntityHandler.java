@@ -17,21 +17,15 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestController
 public class CustomizedResponseEntityHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(CustomerSecurityQuestionsNotFoundException.class)
-    public final ResponseEntity<Object> handleSecurityQuestions(CustomerSecurityQuestionsNotFoundException customerSecurityQuestionsNotFoundException){
-        ExceptionResponse exceptionResponse = new ExceptionResponse(Constants.SECURITY_QUESTION_NOT_FOUND_CODE,customerSecurityQuestionsNotFoundException.getMessage());
-        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
-    }
-
     @ExceptionHandler(CustomerNotFoundException.class)
     public final ResponseEntity<Object> handleCustomException(CustomerNotFoundException customerNotFoundException){
         ExceptionResponse exceptionResponse = new ExceptionResponse(customerNotFoundException.getCode(),customerNotFoundException.getDescription());
         return new ResponseEntity<>(exceptionResponse,HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(MandatoryFieldNotValidatedException.class)
-    public final ResponseEntity<Object> handleSecurityQuestions(MandatoryFieldNotValidatedException mandatoryFieldNotValidatedException){
-        ExceptionResponse exceptionResponse = new ExceptionResponse(Constants.FIELD_NOT_FOUND_CODE,Constants.FIELD_NOT_FOUND_DESCRIPTION);
+    @ExceptionHandler(CustomerSecurityQuestionsNotFoundException.class)
+    public final ResponseEntity<Object> handleSecurityQuestions(CustomerSecurityQuestionsNotFoundException customerSecurityQuestionsNotFoundException){
+        ExceptionResponse exceptionResponse = new ExceptionResponse(Constants.SECURITY_QUESTION_NOT_FOUND_CODE,customerSecurityQuestionsNotFoundException.getMessage());
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 

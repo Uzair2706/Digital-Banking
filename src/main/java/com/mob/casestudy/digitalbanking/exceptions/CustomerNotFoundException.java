@@ -5,7 +5,6 @@ import lombok.Getter;
 @Getter
 public class CustomerNotFoundException extends RuntimeException {
 
-
     private final String code;
     private final String description;
 

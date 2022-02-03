@@ -41,9 +41,9 @@ class CustomerOtpServicesTest {
 
         CustomerOtpDto customerOtpDto = CustomerOtpDto.builder().templateId(templateId).userName(userName).build();
 
-        Mockito.when(validationHelper.validateCustomer(Constants.CUSTOMER_WITH_OTP_NOT_VALID_CODE,userName)).thenReturn(customer);
+        Mockito.when(validationHelper.validateCustomer(userName,Constants.CUSTOMER_WITH_OTP_NOT_VALID_CODE)).thenReturn(customer);
         customerOtpServices.initiateOtp(customerOtpDto);
-        Mockito.verify(validationHelper).validateCustomer(Constants.CUSTOMER_WITH_OTP_NOT_VALID_CODE,userName);
+        Mockito.verify(validationHelper).validateCustomer(userName,Constants.CUSTOMER_WITH_OTP_NOT_VALID_CODE);
         Mockito.verify(customerOtpRepo).save(Mockito.any());
 
     }
