@@ -1,19 +1,18 @@
 package com.mob.casestudy.digitalbanking.exceptions;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import lombok.Getter;
 
-@ResponseStatus(HttpStatus.NOT_FOUND)
+@Getter
 public class CustomerNotFoundException extends RuntimeException {
 
+
+    private final String code;
     private final String description;
 
     public CustomerNotFoundException(String message, String description) {
         super(message);
+        this.code = message;
         this.description = description;
     }
 
-    public String getDescription() {
-        return description;
-    }
 }

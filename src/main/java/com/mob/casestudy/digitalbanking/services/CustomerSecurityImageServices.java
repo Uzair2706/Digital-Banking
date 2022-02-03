@@ -1,5 +1,6 @@
 package com.mob.casestudy.digitalbanking.services;
 
+import com.mob.casestudy.digitalbanking.constants.Constants;
 import com.mob.casestudy.digitalbanking.dtos.CreateCustomerSecurityImageRequest;
 import com.mob.casestudy.digitalbanking.entities.Customer;
 import com.mob.casestudy.digitalbanking.entities.CustomerSecurityImages;
@@ -25,7 +26,7 @@ public class CustomerSecurityImageServices {
     @Transactional
     public void storeImages(String userName, CreateCustomerSecurityImageRequest createCustomerSecurityImageRequest){
 
-        Customer customer = validationHelper.validateCustomer(userName);
+        Customer customer = validationHelper.validateCustomer(userName,Constants.CUSTOMER_NOT_VALID);
         CustomerSecurityImages images = customer.getCustomerSecurityImages();
         deleteStoredImage(images);
         SecurityImages securityImages = validationHelper.validateImageId(createCustomerSecurityImageRequest.getSecurityImageId());

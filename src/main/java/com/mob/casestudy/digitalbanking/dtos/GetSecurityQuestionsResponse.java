@@ -1,14 +1,17 @@
 package com.mob.casestudy.digitalbanking.dtos;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import java.util.List;
 
+@NoArgsConstructor
+@Getter
+@Setter
 public class GetSecurityQuestionsResponse {
 
 
     private List<CustomerSecurityQuestionsDto> securityQuestions;
-
-    public GetSecurityQuestionsResponse() {
-    }
 
     public GetSecurityQuestionsResponse(List<CustomerSecurityQuestionsDto> securityQuestions) {
         this.securityQuestions = securityQuestions;

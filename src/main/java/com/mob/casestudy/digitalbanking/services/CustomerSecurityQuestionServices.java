@@ -1,5 +1,6 @@
 package com.mob.casestudy.digitalbanking.services;
 
+import com.mob.casestudy.digitalbanking.constants.Constants;
 import com.mob.casestudy.digitalbanking.dtos.CustomerSecurityQuestionsDto;
 import com.mob.casestudy.digitalbanking.dtos.GetSecurityQuestionsResponse;
 import com.mob.casestudy.digitalbanking.entities.*;
@@ -18,7 +19,7 @@ public class CustomerSecurityQuestionServices {
     @Transactional
     public GetSecurityQuestionsResponse retrieveQuestions(String userName){
 
-        Customer customer = validationHelper.validateUser(userName);
+        Customer customer = validationHelper.validateCustomer(userName,Constants.USER_NOT_VALID);
         List<CustomerSecurityQuestions> customerSecurityQuestions = customer.getCustomerSecurityQuestions();
         validationHelper.validateQuestions(customerSecurityQuestions);
         List<CustomerSecurityQuestionsDto> customerSecurityQuestionsDtoList = customerSecurityQuestions

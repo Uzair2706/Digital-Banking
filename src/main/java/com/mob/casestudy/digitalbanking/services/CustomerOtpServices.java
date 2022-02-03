@@ -1,9 +1,10 @@
 package com.mob.casestudy.digitalbanking.services;
 
+import com.mob.casestudy.digitalbanking.constants.Constants;
 import com.mob.casestudy.digitalbanking.dtos.CustomerOtpDto;
 import com.mob.casestudy.digitalbanking.entities.Customer;
 import com.mob.casestudy.digitalbanking.entities.CustomerOtp;
-import com.mob.casestudy.digitalbanking.exceptions.SecurityImageIdException;
+import com.mob.casestudy.digitalbanking.exceptions.TemplateIdException;
 import com.mob.casestudy.digitalbanking.helpers.ValidationHelper;
 import com.mob.casestudy.digitalbanking.repositories.CustomerOtpRepo;
 import lombok.SneakyThrows;
@@ -18,21 +19,19 @@ public class CustomerOtpServices {
 
     @Autowired
     ValidationHelper validationHelper;
-
     @Autowired
     CustomerOtpRepo customerOtpRepo;
 
     @Transactional
     public void initiateOtp(CustomerOtpDto customerOtpDto){
-
         String userName = customerOtpDto.getUserName();
-        Customer customer = validationHelper.validateUser(userName);
+        Customer customer = validationHelper.validateCustomer(userName,Constants.CUSTOMER_WITH_OTP_NOT_VALID_CODE);
         String templateId = customerOtpDto.getTemplateId();
         CustomerOtp customerOtp = getCustomerOtp(customer,templateId);
         customerOtpRepo.save(customerOtp);
     }
 
-    private CustomerOtp getCustomerOtp(Customer customer, String templateId) {
+    private CustomerOtp getCustomerOtp(Customer customer,String templateId) {
         CustomerOtp customerOtp = customer.getCustomerOtp();
         String otp = generateOtp();
         return customerOtp.withOtp(otp).withCustomer(customer).withOtpMessage(forDefault(templateId,otp))
@@ -40,20 +39,16 @@ public class CustomerOtpServices {
     }
 
     private String forDefault(String templateId,String otp) {
-
         if(templateId==null || templateId.isEmpty()) return "Your OTP is " + otp;
-        else if(templateId.equalsIgnoreCase("REGISTRATION")) return "OTP for the Registration: " + otp;
-        else if (templateId.equalsIgnoreCase("LOGIN")) return "OTP for the Login: " + otp;
-        else throw new SecurityImageIdException("");
+        else if(templateId.equalsIgnoreCase("REGISTRATION")) return "OTP for the Registration is " + otp;
+        else if (templateId.equalsIgnoreCase("LOGIN")) return "OTP for the Login is " + otp;
+        else throw new TemplateIdException();
     }
 
     @SneakyThrows
     private String generateOtp() {
-        SecureRandom secureRandomGenerator = SecureRandom.getInstance("SHA1PRNG", "SUN");
+        SecureRandom secureRandomGenerator = SecureRandom.getInstance("SHA1PRNG","SUN");
         int range = secureRandomGenerator.nextInt(100000,999999);
         return String.valueOf(range);
     }
-
-
-
 }

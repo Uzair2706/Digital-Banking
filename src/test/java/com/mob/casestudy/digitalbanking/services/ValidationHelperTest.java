@@ -36,6 +36,7 @@ class ValidationHelperTest {
     SecurityImagesRepo securityImagesRepo;
 
     String byUserName = "UzairKhan2706";
+    String code = "CXX-XXX-XXX-00X";
 
     Customer customer = Customer.builder().userName("UzairKhan2706").firstName("Uzair").lastName("Khan").phoneNumber("7226803020").email("uzairkhan27@gmail.com").status(Customer.CustomerStatus.ACTIVE)
             .preferredLanguage(Customer.CustomerPreferredLanguage.EN).externalId("42069").createdBy("Me").createdOn(LocalDateTime.now()).updatedBy("Again Me").updatedOn(LocalDateTime.now()).build();
@@ -45,32 +46,10 @@ class ValidationHelperTest {
     Customer noCustomer;
 
     @Test
-    void validateUser_shouldValidateUserWithTheirName(){
-
-          Mockito.when(customerRepo.findByUserName(byUserName)).thenReturn(Optional.ofNullable(customer));
-          validationHelper.validateUser(byUserName);
-          Mockito.verify(customerRepo).findByUserName(byUserName);
-    }
-
-    @Test
-    void validateUser_withNoUserNameFound_shouldThrowAnException() {
-
-        Mockito.when(customerRepo.findByUserName(byUserName)).thenReturn(Optional.ofNullable(noCustomer));
-        Assertions.assertThrows(CustomerNotFoundException.class,()-> validationHelper.validateUser(byUserName));
-    }
-
-    @Test
-    void validateQuestions_withNoQuestions_shouldThrowAnException() {
-
-        List<CustomerSecurityQuestions> customerSecurityQuestions = new ArrayList<>();
-        Assertions.assertThrows(CustomerSecurityQuestionsNotFoundException.class,()-> validationHelper.validateQuestions(customerSecurityQuestions));
-    }
-
-    @Test
     void validateCustomer_shouldValidateCustomerWithTheirName() {
 
         Mockito.when(customerRepo.findByUserName(byUserName)).thenReturn(Optional.ofNullable(customer));
-        validationHelper.validateUser(byUserName);
+        validationHelper.validateCustomer(byUserName,code);
         Mockito.verify(customerRepo).findByUserName(byUserName);
 
     }
@@ -79,7 +58,15 @@ class ValidationHelperTest {
     void validateCustomer_withNoCustomerFound_willThrowAnException() {
 
         Mockito.when(customerRepo.findByUserName(byUserName)).thenReturn(Optional.ofNullable(noCustomer));
-        Assertions.assertThrows(CustomerNotFoundException.class,()-> validationHelper.validateCustomer(byUserName));
+        Assertions.assertThrows(CustomerNotFoundException.class,()-> validationHelper.validateCustomer(byUserName,code));
+    }
+
+
+    @Test
+    void validateQuestions_withNoQuestions_shouldThrowAnException() {
+
+        List<CustomerSecurityQuestions> customerSecurityQuestions = new ArrayList<>();
+        Assertions.assertThrows(CustomerSecurityQuestionsNotFoundException.class,()-> validationHelper.validateQuestions(customerSecurityQuestions));
     }
 
     @Test

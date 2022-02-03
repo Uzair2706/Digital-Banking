@@ -25,13 +25,7 @@ public class CustomizedResponseEntityHandler extends ResponseEntityExceptionHand
 
     @ExceptionHandler(CustomerNotFoundException.class)
     public final ResponseEntity<Object> handleCustomException(CustomerNotFoundException customerNotFoundException){
-        ExceptionResponse exceptionResponse;
-
-        if(customerNotFoundException.getMessage().contains(Constants.USER_NOT_VALID)){
-            exceptionResponse = new ExceptionResponse(Constants.USER_NOT_VALID,customerNotFoundException.getDescription());
-        }
-        else
-            exceptionResponse = new ExceptionResponse(Constants.CUSTOMER_NOT_VALID,customerNotFoundException.getDescription());
+        ExceptionResponse exceptionResponse = new ExceptionResponse(customerNotFoundException.getCode(),customerNotFoundException.getDescription());
         return new ResponseEntity<>(exceptionResponse,HttpStatus.NOT_FOUND);
     }
 
@@ -41,6 +35,11 @@ public class CustomizedResponseEntityHandler extends ResponseEntityExceptionHand
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(TemplateIdException.class)
+    public final ResponseEntity<Object> handleSecurityQuestions(TemplateIdException templateIdException){
+        ExceptionResponse exceptionResponse = new ExceptionResponse(Constants.TEMPLATE_ID_NOT_VALID,Constants.TEMPLATE_ID_NOT_VALID_DESCRIPTION);
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {

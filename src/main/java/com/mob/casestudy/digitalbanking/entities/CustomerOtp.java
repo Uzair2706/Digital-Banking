@@ -2,7 +2,6 @@ package com.mob.casestudy.digitalbanking.entities;
 
 import com.mob.casestudy.digitalbanking.embeddables.CustomerOtpId;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -29,7 +28,6 @@ public class CustomerOtp {
     private Integer otpRetries;
 
     private LocalDateTime expiryOn;
-
     private LocalDateTime createdOn;
 
     @OneToOne

@@ -1,6 +1,5 @@
 package com.mob.casestudy.digitalbanking.helpers;
 
-import com.mob.casestudy.digitalbanking.constants.Constants;
 import com.mob.casestudy.digitalbanking.entities.Customer;
 import com.mob.casestudy.digitalbanking.entities.CustomerSecurityQuestions;
 import com.mob.casestudy.digitalbanking.entities.SecurityImages;
@@ -23,10 +22,10 @@ public class ValidationHelper {
     @Autowired
     SecurityImagesRepo securityImagesRepo;
 
-    public Customer validateUser(String userName) {
+    public Customer validateCustomer(String userName,String code){
         Optional<Customer> customer = customerRepo.findByUserName(userName);
         if (customer.isEmpty()) {
-            throw new CustomerNotFoundException(Constants.USER_NOT_VALID,"The username '" + userName + "' is not registered with the system");
+            throw new CustomerNotFoundException(code,"The username '" + userName + "' is not registered with the system");
         }
         return customer.get();
     }
@@ -35,15 +34,6 @@ public class ValidationHelper {
         if (customerSecurityQuestions.isEmpty()) {
             throw new CustomerSecurityQuestionsNotFoundException("There are no questions found for this registered user ");
         }
-    }
-
-
-    public Customer validateCustomer(String userName) {
-        Optional<Customer> customer = customerRepo.findByUserName(userName);
-        if (customer.isEmpty()) {
-            throw new CustomerNotFoundException(Constants.CUSTOMER_NOT_VALID,"The username '" + userName + "' is not registered with the system");
-        }
-        return customer.get();
     }
 
     public SecurityImages validateImageId(String id) {

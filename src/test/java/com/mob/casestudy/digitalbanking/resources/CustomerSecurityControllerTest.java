@@ -1,6 +1,8 @@
 package com.mob.casestudy.digitalbanking.resources;
 
 import com.mob.casestudy.digitalbanking.dtos.CreateCustomerSecurityImageRequest;
+import com.mob.casestudy.digitalbanking.dtos.CustomerOtpDto;
+import com.mob.casestudy.digitalbanking.services.CustomerOtpServices;
 import com.mob.casestudy.digitalbanking.services.CustomerSecurityImageServices;
 import com.mob.casestudy.digitalbanking.services.CustomerSecurityQuestionServices;
 import org.assertj.core.api.Assertions;
@@ -12,7 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.concurrent.TimeUnit;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -28,11 +29,12 @@ class CustomerSecurityControllerTest {
     @Mock
     CustomerSecurityImageServices customerSecurityImageServices;
 
+    @Mock
+    CustomerOtpServices customerOtpServices;
+
     @Test
     void retrieveQuestionsByUserName() {
-
         String userName = "UzairKhan2706";
-
         ResponseEntity<Object> expected = ResponseEntity.ok().body(customerSecurityQuestionServices.retrieveQuestions(userName));
         ResponseEntity<Object> actual = customerSecurityController.retrieveQuestionsByUserName(userName);
         Assertions.assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
@@ -40,7 +42,6 @@ class CustomerSecurityControllerTest {
 
     @Test
     void storeCustomerSecurityImagesByUserName() {
-
         String userName = "UzairKhan2706";
         CreateCustomerSecurityImageRequest createCustomerSecurityImageRequest = new CreateCustomerSecurityImageRequest();
         customerSecurityImageServices.storeImages(userName,createCustomerSecurityImageRequest);
@@ -50,6 +51,14 @@ class CustomerSecurityControllerTest {
     }
 
 
+    @Test
+    void otpInitiation() {
+        CustomerOtpDto customerOtpDto = new CustomerOtpDto();
+        customerOtpServices.initiateOtp(customerOtpDto);
+        ResponseEntity<Object> expected = ResponseEntity.ok().build();
+        ResponseEntity<Object> actual = customerSecurityController.otpInitiation(customerOtpDto);
+        Assertions.assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
+    }
 }
 
 //    @Test

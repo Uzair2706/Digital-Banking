@@ -1,5 +1,6 @@
 package com.mob.casestudy.digitalbanking.services;
 
+import com.mob.casestudy.digitalbanking.constants.Constants;
 import com.mob.casestudy.digitalbanking.dtos.CustomerSecurityQuestionsDto;
 import com.mob.casestudy.digitalbanking.dtos.GetSecurityQuestionsResponse;
 import com.mob.casestudy.digitalbanking.embeddables.CustomerSecurityQuestionsId;
@@ -49,7 +50,7 @@ class CustomerSecurityQuestionServicesTest {
 
         customer.addCustomerSecurityQuestions(customerSecurityQuestions);
 
-        Mockito.when(validationHelper.validateUser(userName)).thenReturn(customer);
+        Mockito.when(validationHelper.validateCustomer(userName,Constants.USER_NOT_VALID)).thenReturn(customer);
 
         GetSecurityQuestionsResponse actual = customerSecurityQuestionServices.retrieveQuestions(userName);
 
