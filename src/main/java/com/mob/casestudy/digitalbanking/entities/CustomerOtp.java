@@ -2,6 +2,8 @@ package com.mob.casestudy.digitalbanking.entities;
 
 import com.mob.casestudy.digitalbanking.embeddables.CustomerOtpId;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -11,6 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
+@With
 public class CustomerOtp {
 
     @EmbeddedId

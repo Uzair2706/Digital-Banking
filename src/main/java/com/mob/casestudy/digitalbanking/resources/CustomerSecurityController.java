@@ -37,9 +37,9 @@ public class CustomerSecurityController {
     }
 
     @PostMapping("/client-api/v1/otp/initiate")
-    public ResponseEntity<Object> otpInitiation(@RequestBody CustomerOtpDto customerOtpDto) {
+    public ResponseEntity<Object> otpInitiation(@RequestBody CustomerOtpDto customerOtpDto){
         customerOtpServices.initiateOtp(customerOtpDto);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.ok().build();
     }
 
 
