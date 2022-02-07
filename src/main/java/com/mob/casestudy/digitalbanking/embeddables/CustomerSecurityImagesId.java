@@ -15,5 +15,4 @@ public class CustomerSecurityImagesId implements Serializable {
 
     private String customerId;
     private String securityImageId;
-
 }

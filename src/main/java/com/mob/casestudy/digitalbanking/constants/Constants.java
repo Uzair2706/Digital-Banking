@@ -13,9 +13,12 @@ public final class Constants {
     public static final String SECURITY_IMAGE_NOT_FOUND_CODE = "CSI-CREATE-FIE-003";
     public static final String USER_NOT_VALID = "CSQ-GET-FIE-002";
     public static final String CUSTOMER_NOT_VALID = "CSI-GET-FIE-005";
-    public static final String CUSTOMER_WITH_OTP_NOT_VALID_CODE = "OTP-INI-FIE-001";
+    public static final String CUSTOMER_WITH_INVALID_CODE = "OTP-INI-FIE-001";
     public static final String TEMPLATE_ID_NOT_VALID = "OTP-INI-FIE-002";
     public static final String TEMPLATE_ID_NOT_VALID_DESCRIPTION = "The template id is not valid";
-
-
+    public static final String DEFAULT_OTP = "Your OTP is ";
+    public static final String REG_OTP = "OTP for the Registration is ";
+    public static final String LOGIN_OTP = "OTP for the Login is ";
+    public static final String NON_UNIQUE_USERNAME_CODE = "CUS-CREATE-FIE-006";
+    public static final String NON_UNIQUE_USERNAME_DESCRIPTION = "This username is already in use, chose a unique one";
 }

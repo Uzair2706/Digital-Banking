@@ -33,7 +33,7 @@ class CustomerSecurityImageServicesTest {
     EntityManager entityManager;
 
     @Test
-    void storeImages() {
+    void storingImages_forCustomer_withValidInput() {
 
         String userName = "UzairKhan2706";
 

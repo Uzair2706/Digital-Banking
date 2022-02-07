@@ -16,5 +16,4 @@ public class CustomerSecurityQuestionsId implements Serializable {
 
     private String customerId;
     private UUID securityQuestionId;
-
 }

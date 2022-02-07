@@ -18,9 +18,7 @@ public class SecurityQuestions {
     @Id
     @Column(length = 36)
     @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator")
+    @GenericGenerator(name = "UUID",strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
     @Column(length = 50)
@@ -36,5 +34,4 @@ public class SecurityQuestions {
     public void removeCustomerSecurityQuestions(CustomerSecurityQuestions customerSecurityQuestions) {
         this.customerSecurityQuestions.remove(customerSecurityQuestions);
     }
-
 }

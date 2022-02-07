@@ -36,5 +36,4 @@ public class SecurityImages {
     public void removeCustomerSecurityImages(CustomerSecurityImages customerSecurityImages) {
         this.customerSecurityImages.remove(customerSecurityImages);
     }
-
 }

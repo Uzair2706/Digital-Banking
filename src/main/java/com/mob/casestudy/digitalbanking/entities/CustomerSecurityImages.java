@@ -31,6 +31,4 @@ public class CustomerSecurityImages {
     @ManyToOne
     @MapsId("securityImageId")
     private SecurityImages securityImages;
-
-
 }

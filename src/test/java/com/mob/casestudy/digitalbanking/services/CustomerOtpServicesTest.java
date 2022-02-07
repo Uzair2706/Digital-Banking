@@ -1,7 +1,7 @@
 package com.mob.casestudy.digitalbanking.services;
 
 import com.mob.casestudy.digitalbanking.constants.Constants;
-import com.mob.casestudy.digitalbanking.dtos.CustomerOtpDto;
+import com.mob.casestudy.digitalbanking.dtos.InitiateOtpRequest;
 import com.mob.casestudy.digitalbanking.embeddables.CustomerOtpId;
 import com.mob.casestudy.digitalbanking.entities.Customer;
 import com.mob.casestudy.digitalbanking.entities.CustomerOtp;
@@ -29,7 +29,7 @@ class CustomerOtpServicesTest {
     CustomerOtpRepo customerOtpRepo;
 
     @Test
-    void initiateOtp() {
+    void initiateOtp_forCustomerWithValidInput() {
 
         String userName = "UzairKhan2706";
         String templateId = "REGISTRATION";
@@ -39,11 +39,11 @@ class CustomerOtpServicesTest {
         Customer customer = Customer.builder().customerOtp(customerOtp).userName("UzairKhan2706").firstName("Uzair").lastName("Khan").phoneNumber("7226803020").email("uzairkhan27@gmail.com").status(Customer.CustomerStatus.ACTIVE)
                 .preferredLanguage(Customer.CustomerPreferredLanguage.EN).externalId("42069").createdBy("Me").createdOn(LocalDateTime.now()).updatedBy("Again Me").updatedOn(LocalDateTime.now()).build();
 
-        CustomerOtpDto customerOtpDto = CustomerOtpDto.builder().templateId(templateId).userName(userName).build();
+        InitiateOtpRequest initiateOtpRequest = InitiateOtpRequest.builder().templateId(templateId).userName(userName).build();
 
-        Mockito.when(validationHelper.validateCustomer(userName,Constants.CUSTOMER_WITH_OTP_NOT_VALID_CODE)).thenReturn(customer);
-        customerOtpServices.initiateOtp(customerOtpDto);
-        Mockito.verify(validationHelper).validateCustomer(userName,Constants.CUSTOMER_WITH_OTP_NOT_VALID_CODE);
+        Mockito.when(validationHelper.validateCustomer(userName, Constants.CUSTOMER_WITH_INVALID_CODE)).thenReturn(customer);
+        customerOtpServices.initiatingOtpForCustomer(initiateOtpRequest);
+        Mockito.verify(validationHelper).validateCustomer(userName, Constants.CUSTOMER_WITH_INVALID_CODE);
         Mockito.verify(customerOtpRepo).save(Mockito.any());
 
     }

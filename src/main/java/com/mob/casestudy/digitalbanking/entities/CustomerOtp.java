@@ -33,5 +33,4 @@ public class CustomerOtp {
     @OneToOne
     @MapsId("customerId")
     private Customer customer;
-
 }

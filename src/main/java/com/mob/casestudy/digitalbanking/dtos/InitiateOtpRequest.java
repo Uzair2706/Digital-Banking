@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CustomerOtpDto {
+public class InitiateOtpRequest {
 
     private String userName;
     private String templateId;
-
 }

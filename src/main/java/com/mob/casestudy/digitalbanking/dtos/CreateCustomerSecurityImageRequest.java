@@ -21,7 +21,6 @@ public class CreateCustomerSecurityImageRequest {
 
     @NotNull(message = Constants.CAPTION_NOT_NULL_DESCRIPTION)
     @NotEmpty(message = Constants.CAPTION_NOT_EMPTY_DESCRIPTION)
-    @Size(min = 3,message = Constants.CAPTION_SIZE_NOT_VALID_DESCRIPTION)
-    private String securityImageCaption ;
-
+    @Size(min = 3, message = Constants.CAPTION_SIZE_NOT_VALID_DESCRIPTION)
+    private String securityImageCaption;
 }

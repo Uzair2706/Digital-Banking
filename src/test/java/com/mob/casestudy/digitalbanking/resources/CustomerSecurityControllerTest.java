@@ -1,7 +1,7 @@
 package com.mob.casestudy.digitalbanking.resources;
 
 import com.mob.casestudy.digitalbanking.dtos.CreateCustomerSecurityImageRequest;
-import com.mob.casestudy.digitalbanking.dtos.CustomerOtpDto;
+import com.mob.casestudy.digitalbanking.dtos.InitiateOtpRequest;
 import com.mob.casestudy.digitalbanking.services.CustomerOtpServices;
 import com.mob.casestudy.digitalbanking.services.CustomerSecurityImageServices;
 import com.mob.casestudy.digitalbanking.services.CustomerSecurityQuestionServices;
@@ -53,10 +53,10 @@ class CustomerSecurityControllerTest {
 
     @Test
     void otpInitiation() {
-        CustomerOtpDto customerOtpDto = new CustomerOtpDto();
-        customerOtpServices.initiateOtp(customerOtpDto);
+        InitiateOtpRequest initiateOtpRequest = new InitiateOtpRequest();
+        customerOtpServices.initiatingOtpForCustomer(initiateOtpRequest);
         ResponseEntity<Object> expected = ResponseEntity.ok().build();
-        ResponseEntity<Object> actual = customerSecurityController.otpInitiation(customerOtpDto);
+        ResponseEntity<Object> actual = customerSecurityController.otpInitiationForCustomer(initiateOtpRequest);
         Assertions.assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
     }
 }

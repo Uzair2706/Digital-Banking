@@ -19,5 +19,4 @@ public class CustomerOtpId implements Serializable {
     public CustomerOtpId() {
         otpId = UUID.randomUUID();
     }
-
 }
