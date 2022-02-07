@@ -72,4 +72,11 @@ public class CustomizedResponseEntityHandler extends ResponseEntityExceptionHand
         ExceptionResponse exceptionResponse = new ExceptionResponse(SECURITY_IMAGE_NOT_FOUND_CODE, securityImageIdException.getMessage());
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
+
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public final ResponseEntity<Object> handle(Exception exception) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(PREF_LANG_CODE,PREF_LANG_DESCRIPTION);
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
 }

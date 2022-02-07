@@ -20,5 +20,8 @@ public final class Constants {
     public static final String REG_OTP = "OTP for the Registration is ";
     public static final String LOGIN_OTP = "OTP for the Login is ";
     public static final String NON_UNIQUE_USERNAME_CODE = "CUS-CREATE-FIE-006";
+    public static final String PREF_LANG_CODE = "CUS-CREATE-FIE-004";
+    public static final String PREF_LANG_DESCRIPTION = "Preferred Language is not in proper format \n Try using EN,FR,DE";
     public static final String NON_UNIQUE_USERNAME_DESCRIPTION = "This username is already in use, chose a unique one";
+
 }

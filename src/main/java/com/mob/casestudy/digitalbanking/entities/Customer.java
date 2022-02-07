@@ -11,7 +11,8 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@Builder()
+@Builder
+@With
 public class Customer {
 
     @Id
@@ -37,7 +38,7 @@ public class Customer {
 
     @Column(length = 20)
     @Enumerated(EnumType.STRING)
-    private CustomerStatus status = CustomerStatus.PENDING;
+    private CustomerStatus status = CustomerStatus.ACTIVE;
 
     @Column(length = 2)
     @Enumerated(EnumType.STRING)

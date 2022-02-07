@@ -46,7 +46,6 @@ public class CustomerSecurityController {
 
     @PostMapping("/client-api/v1/customers")
     public ResponseEntity<Object> creatingCustomer(@RequestBody @Valid CustomerDto customerDto) {
-        customerServices.creatingCustomerForApplication(customerDto);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(customerServices.creatingCustomerForApplication(customerDto).getId());
     }
 }
