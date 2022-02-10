@@ -1,11 +1,9 @@
 package com.mob.casestudy.digitalbanking.resources;
 
 import com.digitalbanking.openapi.api.ClientApiApi;
-import com.digitalbanking.openapi.model.CreateCustomerRequest;
-import com.digitalbanking.openapi.model.CreateCustomerResponse;
-import com.digitalbanking.openapi.model.GetCustomerSecurityQuestionResponse;
-import com.digitalbanking.openapi.model.InitiateOtpRequest;
+import com.digitalbanking.openapi.model.*;
 import com.mob.casestudy.digitalbanking.services.CustomerOtpServices;
+import com.mob.casestudy.digitalbanking.services.CustomerSecurityImageServices;
 import com.mob.casestudy.digitalbanking.services.CustomerSecurityQuestionServices;
 import com.mob.casestudy.digitalbanking.services.CustomerServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +21,8 @@ public class ControllerImpl implements ClientApiApi {
     CustomerOtpServices customerOtpServices;
     @Autowired
     CustomerSecurityQuestionServices customerSecurityQuestionServices;
+    @Autowired
+    CustomerSecurityImageServices customerSecurityImageServices;
 
     @Override
     public ResponseEntity<CreateCustomerResponse> postCustomers(CreateCustomerRequest createCustomerRequest) {
@@ -37,5 +37,10 @@ public class ControllerImpl implements ClientApiApi {
     @Override
     public ResponseEntity<GetCustomerSecurityQuestionResponse> getSecurityQuestionsByUserName(String username) {
         return customerSecurityQuestionServices.retrieveQuestions(username);
+    }
+
+    @Override
+    public ResponseEntity<Void> saveSecurityImageById(String username, CreateCustomerSecurityImageRequest createCustomerSecurityImageRequest) {
+        return customerSecurityImageServices.storeImages(username,createCustomerSecurityImageRequest);
     }
 }

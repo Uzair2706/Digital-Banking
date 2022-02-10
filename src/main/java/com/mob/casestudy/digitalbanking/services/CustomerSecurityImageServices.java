@@ -1,21 +1,23 @@
 package com.mob.casestudy.digitalbanking.services;
 
-import com.mob.casestudy.digitalbanking.dtos.CreateCustomerSecurityImageRequest;
+import com.digitalbanking.openapi.model.CreateCustomerSecurityImageRequest;
 import com.mob.casestudy.digitalbanking.entities.Customer;
 import com.mob.casestudy.digitalbanking.entities.CustomerSecurityImages;
 import com.mob.casestudy.digitalbanking.entities.SecurityImages;
 import com.mob.casestudy.digitalbanking.helpers.ValidationHelper;
 import com.mob.casestudy.digitalbanking.repositories.CustomerSecurityImagesRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
+import org.springframework.validation.annotation.Validated;
 import static com.mob.casestudy.digitalbanking.constants.Constants.*;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 @Service
+@Validated
 public class CustomerSecurityImageServices {
 
     @Autowired
@@ -26,7 +28,7 @@ public class CustomerSecurityImageServices {
     EntityManager entityManager;
 
     @Transactional
-    public void storeImages(String userName, CreateCustomerSecurityImageRequest createCustomerSecurityImageRequest) {
+    public ResponseEntity<Void> storeImages(String userName, CreateCustomerSecurityImageRequest createCustomerSecurityImageRequest) {
         Customer customer = validationHelper.validateCustomer(userName, CUSTOMER_NOT_VALID);
         CustomerSecurityImages images = customer.getCustomerSecurityImages();
         deleteStoredImage(images);
@@ -34,8 +36,10 @@ public class CustomerSecurityImageServices {
         CustomerSecurityImages customerSecurityImages = new CustomerSecurityImages();
         customerSecurityImages.setCustomer(customer);
         customerSecurityImages.setSecurityImages(securityImages);
+        validationHelper.validateCaption(createCustomerSecurityImageRequest);
         customerSecurityImages.setSecurityImageCaption(createCustomerSecurityImageRequest.getSecurityImageCaption());
         customerSecurityImagesRepo.save(customerSecurityImages);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     private void deleteStoredImage(CustomerSecurityImages images) {

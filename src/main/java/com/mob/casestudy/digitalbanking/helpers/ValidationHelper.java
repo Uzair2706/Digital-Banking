@@ -1,6 +1,7 @@
 package com.mob.casestudy.digitalbanking.helpers;
 
 import com.digitalbanking.openapi.model.CreateCustomerRequest;
+import com.digitalbanking.openapi.model.CreateCustomerSecurityImageRequest;
 import com.digitalbanking.openapi.model.PreferredLanguage;
 import com.mob.casestudy.digitalbanking.entities.Customer;
 import com.mob.casestudy.digitalbanking.entities.CustomerSecurityQuestions;
@@ -12,6 +13,7 @@ import com.mob.casestudy.digitalbanking.repositories.SecurityImagesRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static com.mob.casestudy.digitalbanking.constants.Constants.*;
@@ -69,6 +71,15 @@ public class ValidationHelper {
         if (customerRepo.existsByUserName(createCustomerRequest.getUserName())) {
             throw new BadRequestExceptions(NON_UNIQUE_USERNAME_CODE, NON_UNIQUE_USERNAME_DESCRIPTION);
         }
+    }
+
+    public void validateCaption(CreateCustomerSecurityImageRequest createCustomerSecurityImageRequest) {
+        if (Objects.isNull(createCustomerSecurityImageRequest.getSecurityImageCaption()))
+            throw new BadRequestExceptions(CAPTION_NOT_VALID, CAPTION_NOT_NULL_DESCRIPTION);
+        if (createCustomerSecurityImageRequest.getSecurityImageCaption().isEmpty())
+            throw new BadRequestExceptions(CAPTION_NOT_VALID, CAPTION_NOT_EMPTY_DESCRIPTION);
+        if (createCustomerSecurityImageRequest.getSecurityImageCaption().length() <= 3)
+            throw new BadRequestExceptions(CAPTION_NOT_VALID, CAPTION_SIZE_NOT_VALID_DESCRIPTION);
     }
 
 

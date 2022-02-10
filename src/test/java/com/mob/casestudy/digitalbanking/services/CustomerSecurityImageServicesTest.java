@@ -1,7 +1,8 @@
 package com.mob.casestudy.digitalbanking.services;
 
+import com.digitalbanking.openapi.model.CreateCustomerSecurityImageRequest;
 import com.digitalbanking.openapi.model.PreferredLanguage;
-import com.mob.casestudy.digitalbanking.dtos.CreateCustomerSecurityImageRequest;
+
 import com.mob.casestudy.digitalbanking.entities.Customer;
 import com.mob.casestudy.digitalbanking.entities.SecurityImages;
 import com.mob.casestudy.digitalbanking.helpers.ValidationHelper;
@@ -37,7 +38,7 @@ class CustomerSecurityImageServicesTest {
         Customer customer = Customer.builder().userName("UzairKhan2706").firstName("Uzair").lastName("Khan").phoneNumber("7226803020").email("uzairkhan27@gmail.com").status(Customer.CustomerStatus.ACTIVE)
                 .preferredLanguage(PreferredLanguage.EN).externalId("42069").createdBy("Me").createdOn(LocalDateTime.now()).updatedBy("Again Me").updatedOn(LocalDateTime.now()).build();
 
-        CreateCustomerSecurityImageRequest createCustomerSecurityImageRequest = CreateCustomerSecurityImageRequest.builder().securityImageId(id.toString()).securityImageCaption("POR FAVOR").build();
+        CreateCustomerSecurityImageRequest createCustomerSecurityImageRequest = new CreateCustomerSecurityImageRequest().securityImageId(id.toString()).securityImageCaption("POR FAVOR");
         SecurityImages images = SecurityImages.builder().securityImageName("Pagani").securityImageUrl("pagani/here").build();
         Mockito.when(validationHelper.validateCustomer(userName, CUSTOMER_NOT_VALID)).thenReturn(customer);
         Mockito.when(validationHelper.validateImageId(createCustomerSecurityImageRequest.getSecurityImageId(),SECURITY_IMAGE_NOT_FOUND_CODE)).thenReturn(images);

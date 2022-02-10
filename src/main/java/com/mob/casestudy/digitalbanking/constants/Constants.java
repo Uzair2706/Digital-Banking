@@ -3,7 +3,7 @@ package com.mob.casestudy.digitalbanking.constants;
 public final class Constants {
 
     private Constants(){}
-    public static final String SECURITY_IMAGE_TEXT_NOT_VALID_CODE = "CSI-CREATE-FIE-002";
+    public static final String CAPTION_NOT_VALID = "CSI-CREATE-FIE-002";
     public static final String CAPTION_SIZE_NOT_VALID_DESCRIPTION = "Size must be minimum of 3 characters";
     public static final String CAPTION_NOT_NULL_DESCRIPTION = "Caption should not be null";
     public static final String CAPTION_NOT_EMPTY_DESCRIPTION = "Caption should not be empty";

@@ -14,6 +14,7 @@ import static com.mob.casestudy.digitalbanking.constants.Constants.*;
 import javax.transaction.Transactional;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Service
 public class CustomerOtpServices {
@@ -41,7 +42,7 @@ public class CustomerOtpServices {
     }
 
     private String otpMessage(String templateId, String otp) {
-        if (templateId == null || templateId.isEmpty()) return DEFAULT_OTP + otp;
+        if (Objects.isNull(templateId)|| templateId.isEmpty()) return DEFAULT_OTP + otp;
         else if (templateId.equalsIgnoreCase("REGISTRATION")) return REG_OTP + otp;
         else if (templateId.equalsIgnoreCase("LOGIN")) return LOGIN_OTP + otp;
         else throw new BadRequestExceptions(TEMPLATE_ID_NOT_VALID,TEMPLATE_ID_NOT_VALID_DESCRIPTION);
