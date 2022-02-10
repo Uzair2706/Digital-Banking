@@ -1,6 +1,5 @@
 package com.mob.casestudy.digitalbanking.entities;
 
-import com.mob.casestudy.digitalbanking.dtos.CustomerSecurityQuestionsDto;
 import com.mob.casestudy.digitalbanking.embeddables.CustomerSecurityQuestionsId;
 import lombok.*;
 import javax.persistence.*;
@@ -31,7 +30,4 @@ public class CustomerSecurityQuestions {
     @MapsId("securityQuestionId")
     private SecurityQuestions securityQuestions;
 
-    public CustomerSecurityQuestionsDto toDto(){
-        return new CustomerSecurityQuestionsDto(securityQuestions.getId().toString(),securityQuestions.getSecurityQuestionText(),securityQuestionAnswer);
-    }
 }

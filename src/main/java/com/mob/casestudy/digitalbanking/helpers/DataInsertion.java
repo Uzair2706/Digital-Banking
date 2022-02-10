@@ -1,5 +1,6 @@
 package com.mob.casestudy.digitalbanking.helpers;
 
+import com.digitalbanking.openapi.model.PreferredLanguage;
 import com.mob.casestudy.digitalbanking.embeddables.CustomerOtpId;
 import com.mob.casestudy.digitalbanking.embeddables.CustomerSecurityImagesId;
 import com.mob.casestudy.digitalbanking.embeddables.CustomerSecurityQuestionsId;
@@ -37,13 +38,13 @@ public class DataInsertion {
     public void addCustomerWithTheirRespectiveQuestionAndAnswer(){
 
         Customer customer = Customer.builder().userName("UzairKhan2706").firstName("Uzair").lastName("Khan").phoneNumber("7226803020").email("uzairkhan27@gmail.com").status(Customer.CustomerStatus.ACTIVE)
-                .preferredLanguage(Customer.CustomerPreferredLanguage.EN).externalId("42069").createdBy("Me").createdOn(LocalDateTime.now()).updatedBy("Again Me").updatedOn(LocalDateTime.now()).build();
+                .preferredLanguage(PreferredLanguage.EN).externalId("42069").createdBy("Me").createdOn(LocalDateTime.now()).updatedBy("Again Me").updatedOn(LocalDateTime.now()).build();
 
-        Customer customer1 = Customer.builder().userName("NeelKoshti247").firstName("Neel").lastName("Koshti").phoneNumber("8654332664").email("neelkoshti247@gmail.com").status(Customer.CustomerStatus.ACTIVE)
-                .preferredLanguage(Customer.CustomerPreferredLanguage.EN).externalId("69069").createdBy("Avengers").createdOn(LocalDateTime.now()).updatedBy("Assemble").updatedOn(LocalDateTime.now()).build();
+        Customer customer1 = Customer.builder().userName("NeelKoshti247").firstName("Neel").lastName("Koshti").phoneNumber("8654332664").email("neelkoshti247@gmail.com").status(Customer.CustomerStatus.INACTIVE)
+                .preferredLanguage(PreferredLanguage.FR).externalId("69069").createdBy("Avengers").createdOn(LocalDateTime.now()).updatedBy("Assemble").updatedOn(LocalDateTime.now()).build();
 
         Customer customer2 = Customer.builder().userName("Siddu26").firstName("Siddharth").lastName("Unknown").phoneNumber("9458907652").email("siddhu26@gmail.com").status(Customer.CustomerStatus.PENDING)
-                .preferredLanguage(Customer.CustomerPreferredLanguage.DE).externalId("31032").createdBy("Still").createdOn(LocalDateTime.now()).updatedBy("Unknown").updatedOn(LocalDateTime.now()).build();
+                .preferredLanguage(PreferredLanguage.DE).externalId("31032").createdBy("Still").createdOn(LocalDateTime.now()).updatedBy("Unknown").updatedOn(LocalDateTime.now()).build();
 
 
         customerRepo.save(customer);

@@ -1,6 +1,6 @@
 package com.mob.casestudy.digitalbanking.services;
 
-import com.mob.casestudy.digitalbanking.constants.Constants;
+import com.digitalbanking.openapi.model.PreferredLanguage;
 import com.mob.casestudy.digitalbanking.dtos.CreateCustomerSecurityImageRequest;
 import com.mob.casestudy.digitalbanking.entities.Customer;
 import com.mob.casestudy.digitalbanking.entities.SecurityImages;
@@ -12,7 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
+import static com.mob.casestudy.digitalbanking.constants.Constants.*;
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -22,13 +22,10 @@ class CustomerSecurityImageServicesTest {
 
     @InjectMocks
     CustomerSecurityImageServices customerSecurityImageServices;
-
     @Mock
     ValidationHelper validationHelper;
-
     @Mock
     CustomerSecurityImagesRepo customerSecurityImagesRepo;
-
     @Mock
     EntityManager entityManager;
 
@@ -36,22 +33,17 @@ class CustomerSecurityImageServicesTest {
     void storingImages_forCustomer_withValidInput() {
 
         String userName = "UzairKhan2706";
-
         UUID id = UUID.randomUUID();
-
         Customer customer = Customer.builder().userName("UzairKhan2706").firstName("Uzair").lastName("Khan").phoneNumber("7226803020").email("uzairkhan27@gmail.com").status(Customer.CustomerStatus.ACTIVE)
-                .preferredLanguage(Customer.CustomerPreferredLanguage.EN).externalId("42069").createdBy("Me").createdOn(LocalDateTime.now()).updatedBy("Again Me").updatedOn(LocalDateTime.now()).build();
+                .preferredLanguage(PreferredLanguage.EN).externalId("42069").createdBy("Me").createdOn(LocalDateTime.now()).updatedBy("Again Me").updatedOn(LocalDateTime.now()).build();
 
         CreateCustomerSecurityImageRequest createCustomerSecurityImageRequest = CreateCustomerSecurityImageRequest.builder().securityImageId(id.toString()).securityImageCaption("POR FAVOR").build();
         SecurityImages images = SecurityImages.builder().securityImageName("Pagani").securityImageUrl("pagani/here").build();
-
-        Mockito.when(validationHelper.validateCustomer(userName,Constants.CUSTOMER_NOT_VALID)).thenReturn(customer);
-        Mockito.when(validationHelper.validateImageId(createCustomerSecurityImageRequest.getSecurityImageId())).thenReturn(images);
-
+        Mockito.when(validationHelper.validateCustomer(userName, CUSTOMER_NOT_VALID)).thenReturn(customer);
+        Mockito.when(validationHelper.validateImageId(createCustomerSecurityImageRequest.getSecurityImageId(),SECURITY_IMAGE_NOT_FOUND_CODE)).thenReturn(images);
         customerSecurityImageServices.storeImages(userName, createCustomerSecurityImageRequest);
-
-        Mockito.verify(validationHelper).validateCustomer(userName,Constants.CUSTOMER_NOT_VALID);
-        Mockito.verify(validationHelper).validateImageId(createCustomerSecurityImageRequest.getSecurityImageId());
+        Mockito.verify(validationHelper).validateCustomer(userName, CUSTOMER_NOT_VALID);
+        Mockito.verify(validationHelper).validateImageId(createCustomerSecurityImageRequest.getSecurityImageId(),SECURITY_IMAGE_NOT_FOUND_CODE);
         Mockito.verify(customerSecurityImagesRepo).save(Mockito.any());
     }
 }

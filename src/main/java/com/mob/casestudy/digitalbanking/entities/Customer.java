@@ -1,6 +1,8 @@
 package com.mob.casestudy.digitalbanking.entities;
 
+import com.digitalbanking.openapi.model.PreferredLanguage;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -42,7 +44,7 @@ public class Customer {
 
     @Column(length = 2)
     @Enumerated(EnumType.STRING)
-    private CustomerPreferredLanguage preferredLanguage;
+    private PreferredLanguage preferredLanguage;
 
     @Column(length = 50)
     private String externalId;
@@ -50,19 +52,17 @@ public class Customer {
     @Column(length = 50)
     private String createdBy;
 
+    @CreationTimestamp
     private LocalDateTime createdOn;
 
     @Column(length = 50)
     private String updatedBy;
 
+    @CreationTimestamp
     private LocalDateTime updatedOn;
 
     public enum CustomerStatus {
         PENDING, ACTIVE, INACTIVE
-    }
-
-    public enum CustomerPreferredLanguage {
-        EN , FR , DE
     }
 
     @OneToMany(mappedBy = "customer")

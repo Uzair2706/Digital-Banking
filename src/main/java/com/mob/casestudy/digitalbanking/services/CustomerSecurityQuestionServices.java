@@ -1,11 +1,12 @@
 package com.mob.casestudy.digitalbanking.services;
 
 import static com.mob.casestudy.digitalbanking.constants.Constants.*;
-import com.mob.casestudy.digitalbanking.dtos.CustomerSecurityQuestionsDto;
-import com.mob.casestudy.digitalbanking.dtos.GetSecurityQuestionsResponse;
+import com.digitalbanking.openapi.model.GetCustomerSecurityQuestionResponse;
+import com.digitalbanking.openapi.model.SecurityQuestion;
 import com.mob.casestudy.digitalbanking.entities.*;
 import com.mob.casestudy.digitalbanking.helpers.ValidationHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -17,13 +18,15 @@ public class CustomerSecurityQuestionServices {
     ValidationHelper validationHelper;
 
     @Transactional
-    public GetSecurityQuestionsResponse retrieveQuestions(String userName){
+    public ResponseEntity<GetCustomerSecurityQuestionResponse> retrieveQuestions(String userName) {
+        List<CustomerSecurityQuestions> customerSecurityQuestions = validationHelper.validateQuestionsWithCustomer(userName, USER_NOT_VALID);
+        List<SecurityQuestion> securityQuestions = customerSecurityQuestions.stream().map(this::toDto).toList();
+        return ResponseEntity.ok().body(new GetCustomerSecurityQuestionResponse().securityQuestions(securityQuestions));
+    }
 
-        Customer customer = validationHelper.validateCustomer(userName, USER_NOT_VALID);
-        List<CustomerSecurityQuestions> customerSecurityQuestions = customer.getCustomerSecurityQuestions();
-        validationHelper.validateQuestions(customerSecurityQuestions);
-        List<CustomerSecurityQuestionsDto> customerSecurityQuestionsDtoList = customerSecurityQuestions
-                .stream().map(CustomerSecurityQuestions::toDto).toList();
-        return new GetSecurityQuestionsResponse(customerSecurityQuestionsDtoList);
+    private SecurityQuestion toDto(CustomerSecurityQuestions customerSecurityQuestions) {
+        return new SecurityQuestion().securityQuestionId(customerSecurityQuestions.getSecurityQuestions().getId().toString())
+                .securityQuestionText(customerSecurityQuestions.getSecurityQuestions().getSecurityQuestionText())
+                .securityQuestionAnswer(customerSecurityQuestions.getSecurityQuestionAnswer());
     }
 }

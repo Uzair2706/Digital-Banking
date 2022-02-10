@@ -8,6 +8,7 @@ import com.mob.casestudy.digitalbanking.helpers.ValidationHelper;
 import com.mob.casestudy.digitalbanking.repositories.CustomerSecurityImagesRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import static com.mob.casestudy.digitalbanking.constants.Constants.*;
 
 import javax.persistence.EntityManager;
@@ -26,12 +27,10 @@ public class CustomerSecurityImageServices {
 
     @Transactional
     public void storeImages(String userName, CreateCustomerSecurityImageRequest createCustomerSecurityImageRequest) {
-
         Customer customer = validationHelper.validateCustomer(userName, CUSTOMER_NOT_VALID);
         CustomerSecurityImages images = customer.getCustomerSecurityImages();
         deleteStoredImage(images);
-        SecurityImages securityImages = validationHelper.validateImageId(createCustomerSecurityImageRequest.getSecurityImageId());
-
+        SecurityImages securityImages = validationHelper.validateImageId(createCustomerSecurityImageRequest.getSecurityImageId(), SECURITY_IMAGE_NOT_FOUND_CODE);
         CustomerSecurityImages customerSecurityImages = new CustomerSecurityImages();
         customerSecurityImages.setCustomer(customer);
         customerSecurityImages.setSecurityImages(securityImages);
