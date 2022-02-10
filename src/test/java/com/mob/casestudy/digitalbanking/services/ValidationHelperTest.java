@@ -79,13 +79,11 @@ class ValidationHelperTest {
                 .email("xyz@gmail.com").phoneNumber("7226803020").preferredLanguage(PreferredLanguage.EN);
         Assertions.assertDoesNotThrow(()->validationHelper.validations(createCustomerRequest));
     }
+
     @Test
     void verifyingUsernameFromDatabase(){
         CreateCustomerRequest createCustomerRequest = new CreateCustomerRequest();
         Mockito.when(customerRepo.existsByUserName(createCustomerRequest.getUserName())).thenReturn(true);
         Assertions.assertThrows(BadRequestExceptions.class, () -> validationHelper.verifyingUsernameFromDatabase(createCustomerRequest));
     }
-
-
-
 }
