@@ -17,6 +17,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.*;
 
+
 @ExtendWith(MockitoExtension.class)
 class ValidationHelperTest {
 
@@ -85,5 +86,12 @@ class ValidationHelperTest {
         CreateCustomerRequest createCustomerRequest = new CreateCustomerRequest();
         Mockito.when(customerRepo.existsByUserName(createCustomerRequest.getUserName())).thenReturn(true);
         Assertions.assertThrows(BadRequestExceptions.class, () -> validationHelper.verifyingUsernameFromDatabase(createCustomerRequest));
+    }
+
+    @Test
+    void validateCaption(){
+        Assertions.assertThrows(BadRequestExceptions.class, () -> validationHelper.validateCaption(null));
+        Assertions.assertThrows(BadRequestExceptions.class, () -> validationHelper.validateCaption(""));
+        Assertions.assertThrows(BadRequestExceptions.class, () -> validationHelper.validateCaption("UK"));
     }
 }

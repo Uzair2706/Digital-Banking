@@ -33,13 +33,17 @@ public class CustomerSecurityImageServices {
         CustomerSecurityImages images = customer.getCustomerSecurityImages();
         deleteStoredImage(images);
         SecurityImages securityImages = validationHelper.validateImageId(createCustomerSecurityImageRequest.getSecurityImageId(), SECURITY_IMAGE_NOT_FOUND_CODE);
+        validationHelper.validateCaption(createCustomerSecurityImageRequest.getSecurityImageCaption());
+        customerSecurityImagesRepo.save(getCustomerSecurityImages(createCustomerSecurityImageRequest, customer, securityImages));
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    private CustomerSecurityImages getCustomerSecurityImages(CreateCustomerSecurityImageRequest createCustomerSecurityImageRequest, Customer customer, SecurityImages securityImages) {
         CustomerSecurityImages customerSecurityImages = new CustomerSecurityImages();
         customerSecurityImages.setCustomer(customer);
         customerSecurityImages.setSecurityImages(securityImages);
-        validationHelper.validateCaption(createCustomerSecurityImageRequest);
         customerSecurityImages.setSecurityImageCaption(createCustomerSecurityImageRequest.getSecurityImageCaption());
-        customerSecurityImagesRepo.save(customerSecurityImages);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return customerSecurityImages;
     }
 
     private void deleteStoredImage(CustomerSecurityImages images) {

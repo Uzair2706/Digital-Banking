@@ -514,6 +514,9 @@ components:
         securityImageUrl:
           $ref: '#/components/schemas/SecurityImageUrl'
     CreateCustomerSecurityImageRequest:
+      required:
+        - securityImageId
+        - securityImageCaption
       type: object
       properties:
         securityImageId:

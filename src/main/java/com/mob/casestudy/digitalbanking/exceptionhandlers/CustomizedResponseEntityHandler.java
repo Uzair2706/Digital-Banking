@@ -1,6 +1,7 @@
 package com.mob.casestudy.digitalbanking.exceptionhandlers;
 
 import com.digitalbanking.openapi.model.CreateCustomerRequest;
+import com.digitalbanking.openapi.model.CreateCustomerSecurityImageRequest;
 import com.mob.casestudy.digitalbanking.exceptions.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,9 @@ public class CustomizedResponseEntityHandler extends ResponseEntityExceptionHand
         if (ex.getMessage().contains(CreateCustomerRequest.class.getName())) {
             exceptionResponse = new ExceptionResponse(CUS_MAND_VALID_CODE, CUS_MAND_VALID_DESCRIPTION);
         }
+        else if (ex.getMessage().contains(CreateCustomerSecurityImageRequest.class.getName())){
+            exceptionResponse = new ExceptionResponse(FIELD_NOT_FOUND_CODE,FIELD_NOT_FOUND_DESCRIPTION);
+        }
         else {
             exceptionResponse = new ExceptionResponse("Unexpected Exception", ex.getMessage());
         }
@@ -45,4 +49,6 @@ public class CustomizedResponseEntityHandler extends ResponseEntityExceptionHand
         ExceptionResponse exceptionResponse = new ExceptionResponse(PREF_LANG_CODE,PREF_LANG_DESCRIPTION);
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
+
+
 }

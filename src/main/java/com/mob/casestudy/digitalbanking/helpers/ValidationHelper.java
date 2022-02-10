@@ -1,7 +1,6 @@
 package com.mob.casestudy.digitalbanking.helpers;
 
 import com.digitalbanking.openapi.model.CreateCustomerRequest;
-import com.digitalbanking.openapi.model.CreateCustomerSecurityImageRequest;
 import com.digitalbanking.openapi.model.PreferredLanguage;
 import com.mob.casestudy.digitalbanking.entities.Customer;
 import com.mob.casestudy.digitalbanking.entities.CustomerSecurityQuestions;
@@ -73,12 +72,12 @@ public class ValidationHelper {
         }
     }
 
-    public void validateCaption(CreateCustomerSecurityImageRequest createCustomerSecurityImageRequest) {
-        if (Objects.isNull(createCustomerSecurityImageRequest.getSecurityImageCaption()))
+    public void validateCaption(String caption) {
+        if (Objects.isNull(caption))
             throw new BadRequestExceptions(CAPTION_NOT_VALID, CAPTION_NOT_NULL_DESCRIPTION);
-        if (createCustomerSecurityImageRequest.getSecurityImageCaption().isEmpty())
+        if (caption.isEmpty())
             throw new BadRequestExceptions(CAPTION_NOT_VALID, CAPTION_NOT_EMPTY_DESCRIPTION);
-        if (createCustomerSecurityImageRequest.getSecurityImageCaption().length() <= 3)
+        if (caption.length() <= 3)
             throw new BadRequestExceptions(CAPTION_NOT_VALID, CAPTION_SIZE_NOT_VALID_DESCRIPTION);
     }
 

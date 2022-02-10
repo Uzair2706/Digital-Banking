@@ -1,8 +1,10 @@
 package com.mob.casestudy.digitalbanking.resources;
 
 import com.digitalbanking.openapi.model.CreateCustomerRequest;
+import com.digitalbanking.openapi.model.CreateCustomerSecurityImageRequest;
 import com.digitalbanking.openapi.model.InitiateOtpRequest;
 import com.mob.casestudy.digitalbanking.services.CustomerOtpServices;
+import com.mob.casestudy.digitalbanking.services.CustomerSecurityImageServices;
 import com.mob.casestudy.digitalbanking.services.CustomerSecurityQuestionServices;
 import com.mob.casestudy.digitalbanking.services.CustomerServices;
 import org.junit.jupiter.api.Test;
@@ -23,6 +25,8 @@ class ControllerImplTest {
     CustomerOtpServices customerOtpServices;
     @Mock
     CustomerSecurityQuestionServices customerSecurityQuestionServices;
+    @Mock
+    CustomerSecurityImageServices customerSecurityImageServices;
 
     @Test
     void postCustomers() {
@@ -43,5 +47,13 @@ class ControllerImplTest {
         String userName = "";
         controller.getSecurityQuestionsByUserName(userName);
         Mockito.verify(customerSecurityQuestionServices).retrieveQuestions(userName);
+    }
+
+    @Test
+    void testSaveSecurityImageById() {
+        String userName = "";
+        CreateCustomerSecurityImageRequest createCustomerSecurityImageRequest = new CreateCustomerSecurityImageRequest();
+        controller.saveSecurityImageById(userName,createCustomerSecurityImageRequest);
+        Mockito.verify(customerSecurityImageServices).storeImages(userName,createCustomerSecurityImageRequest);
     }
 }
