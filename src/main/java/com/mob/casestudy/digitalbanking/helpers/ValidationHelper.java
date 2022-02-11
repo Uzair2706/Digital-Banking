@@ -1,21 +1,19 @@
 package com.mob.casestudy.digitalbanking.helpers;
 
-import com.digitalbanking.openapi.model.CreateCustomerRequest;
-import com.digitalbanking.openapi.model.PreferredLanguage;
-import com.mob.casestudy.digitalbanking.entities.Customer;
 import com.mob.casestudy.digitalbanking.entities.CustomerSecurityQuestions;
-import com.mob.casestudy.digitalbanking.entities.SecurityImages;
+import com.mob.casestudy.digitalbanking.repositories.SecurityImagesRepo;
 import com.mob.casestudy.digitalbanking.exceptions.BadRequestExceptions;
 import com.mob.casestudy.digitalbanking.exceptions.NotFoundExceptions;
+import static com.mob.casestudy.digitalbanking.constants.Constants.*;
 import com.mob.casestudy.digitalbanking.configurations.RegexValues;
 import com.mob.casestudy.digitalbanking.repositories.CustomerRepo;
-import com.mob.casestudy.digitalbanking.repositories.SecurityImagesRepo;
+import com.mob.casestudy.digitalbanking.entities.SecurityImages;
+import com.digitalbanking.openapi.model.CreateCustomerRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.digitalbanking.openapi.model.PreferredLanguage;
+import com.mob.casestudy.digitalbanking.entities.Customer;
 import org.springframework.stereotype.Component;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import static com.mob.casestudy.digitalbanking.constants.Constants.*;
+import java.util.*;
 
 @Component
 public class ValidationHelper {

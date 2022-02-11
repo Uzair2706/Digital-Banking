@@ -1,15 +1,15 @@
 package com.mob.casestudy.digitalbanking.resources;
 
-import com.digitalbanking.openapi.api.ClientApiApi;
-import com.digitalbanking.openapi.model.*;
-import com.mob.casestudy.digitalbanking.services.CustomerOtpServices;
-import com.mob.casestudy.digitalbanking.services.CustomerSecurityImageServices;
 import com.mob.casestudy.digitalbanking.services.CustomerSecurityQuestionServices;
+import com.mob.casestudy.digitalbanking.services.CustomerSecurityImageServices;
+import com.mob.casestudy.digitalbanking.services.CustomerOtpServices;
 import com.mob.casestudy.digitalbanking.services.CustomerServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.digitalbanking.openapi.api.ClientApiApi;
+import org.springframework.http.ResponseEntity;
+import com.digitalbanking.openapi.model.*;
 
 @RestController
 @RequestMapping("/customer-service/")

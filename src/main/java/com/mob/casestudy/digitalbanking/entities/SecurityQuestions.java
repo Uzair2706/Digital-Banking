@@ -1,11 +1,11 @@
 package com.mob.casestudy.digitalbanking.entities;
 
-import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import lombok.*;
 
 @Entity
 @Builder

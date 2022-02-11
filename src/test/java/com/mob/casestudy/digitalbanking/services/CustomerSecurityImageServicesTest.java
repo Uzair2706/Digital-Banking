@@ -2,7 +2,7 @@ package com.mob.casestudy.digitalbanking.services;
 
 import com.digitalbanking.openapi.model.CreateCustomerSecurityImageRequest;
 import com.digitalbanking.openapi.model.PreferredLanguage;
-
+import com.digitalbanking.openapi.model.Status;
 import com.mob.casestudy.digitalbanking.entities.Customer;
 import com.mob.casestudy.digitalbanking.entities.SecurityImages;
 import com.mob.casestudy.digitalbanking.helpers.ValidationHelper;
@@ -35,7 +35,7 @@ class CustomerSecurityImageServicesTest {
 
         String userName = "UzairKhan2706";
         UUID id = UUID.randomUUID();
-        Customer customer = Customer.builder().userName("UzairKhan2706").firstName("Uzair").lastName("Khan").phoneNumber("7226803020").email("uzairkhan27@gmail.com").status(Customer.CustomerStatus.ACTIVE)
+        Customer customer = Customer.builder().userName("UzairKhan2706").firstName("Uzair").lastName("Khan").phoneNumber("7226803020").email("uzairkhan27@gmail.com").status(Status.ACTIVE)
                 .preferredLanguage(PreferredLanguage.EN).externalId("42069").createdBy("Me").createdOn(LocalDateTime.now()).updatedBy("Again Me").updatedOn(LocalDateTime.now()).build();
 
         CreateCustomerSecurityImageRequest createCustomerSecurityImageRequest = new CreateCustomerSecurityImageRequest().securityImageId(id.toString()).securityImageCaption("POR FAVOR");

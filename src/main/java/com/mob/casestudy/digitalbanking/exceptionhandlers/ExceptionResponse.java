@@ -1,8 +1,6 @@
 package com.mob.casestudy.digitalbanking.exceptionhandlers;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter

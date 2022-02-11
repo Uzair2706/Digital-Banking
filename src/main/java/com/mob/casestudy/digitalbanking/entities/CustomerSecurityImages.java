@@ -1,10 +1,10 @@
 package com.mob.casestudy.digitalbanking.entities;
 
 import com.mob.casestudy.digitalbanking.embeddables.CustomerSecurityImagesId;
-import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import javax.persistence.*;
 import java.time.LocalDateTime;
+import javax.persistence.*;
+import lombok.*;
 
 @Entity
 @Builder

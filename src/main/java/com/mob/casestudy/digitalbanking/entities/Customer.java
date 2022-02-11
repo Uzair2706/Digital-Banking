@@ -1,12 +1,13 @@
 package com.mob.casestudy.digitalbanking.entities;
 
 import com.digitalbanking.openapi.model.PreferredLanguage;
-import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
-import javax.persistence.*;
+import com.digitalbanking.openapi.model.Status;
 import java.time.LocalDateTime;
+import javax.persistence.*;
 import java.util.List;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor
@@ -40,7 +41,7 @@ public class Customer {
 
     @Column(length = 20)
     @Enumerated(EnumType.STRING)
-    private CustomerStatus status = CustomerStatus.ACTIVE;
+    private Status status = Status.ACTIVE;
 
     @Column(length = 2)
     @Enumerated(EnumType.STRING)
@@ -60,10 +61,6 @@ public class Customer {
 
     @CreationTimestamp
     private LocalDateTime updatedOn;
-
-    public enum CustomerStatus {
-        PENDING, ACTIVE, INACTIVE
-    }
 
     @OneToMany(mappedBy = "customer")
     private List<CustomerSecurityQuestions> customerSecurityQuestions;

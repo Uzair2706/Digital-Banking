@@ -1,9 +1,9 @@
 package com.mob.casestudy.digitalbanking.entities;
 
 import com.mob.casestudy.digitalbanking.embeddables.CustomerOtpId;
-import lombok.*;
-import javax.persistence.*;
 import java.time.LocalDateTime;
+import javax.persistence.*;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor

@@ -1,7 +1,7 @@
 package com.mob.casestudy.digitalbanking.repositories;
 
-import com.mob.casestudy.digitalbanking.entities.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
+import com.mob.casestudy.digitalbanking.entities.Customer;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;

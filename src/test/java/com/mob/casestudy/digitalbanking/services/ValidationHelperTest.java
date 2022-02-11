@@ -1,23 +1,20 @@
 package com.mob.casestudy.digitalbanking.services;
 
-import com.digitalbanking.openapi.model.CreateCustomerRequest;
-import com.digitalbanking.openapi.model.PreferredLanguage;
-import com.mob.casestudy.digitalbanking.configurations.RegexValues;
-import com.mob.casestudy.digitalbanking.entities.Customer;
-import com.mob.casestudy.digitalbanking.entities.SecurityImages;
+import com.mob.casestudy.digitalbanking.repositories.SecurityImagesRepo;
 import com.mob.casestudy.digitalbanking.exceptions.BadRequestExceptions;
 import com.mob.casestudy.digitalbanking.exceptions.NotFoundExceptions;
-import com.mob.casestudy.digitalbanking.helpers.ValidationHelper;
+import com.mob.casestudy.digitalbanking.configurations.RegexValues;
 import com.mob.casestudy.digitalbanking.repositories.CustomerRepo;
-import com.mob.casestudy.digitalbanking.repositories.SecurityImagesRepo;
-import org.junit.jupiter.api.*;
+import com.mob.casestudy.digitalbanking.helpers.ValidationHelper;
+import com.mob.casestudy.digitalbanking.entities.SecurityImages;
+import com.digitalbanking.openapi.model.CreateCustomerRequest;
+import com.digitalbanking.openapi.model.PreferredLanguage;
+import com.mob.casestudy.digitalbanking.entities.Customer;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.jupiter.api.*;
+import org.mockito.*;
 import java.util.*;
-
 
 @ExtendWith(MockitoExtension.class)
 class ValidationHelperTest {

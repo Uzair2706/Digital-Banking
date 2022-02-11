@@ -1,13 +1,14 @@
 package com.mob.casestudy.digitalbanking.helpers;
 
-import com.digitalbanking.openapi.model.PreferredLanguage;
-import com.mob.casestudy.digitalbanking.embeddables.CustomerOtpId;
-import com.mob.casestudy.digitalbanking.embeddables.CustomerSecurityImagesId;
 import com.mob.casestudy.digitalbanking.embeddables.CustomerSecurityQuestionsId;
-import com.mob.casestudy.digitalbanking.entities.*;
-import com.mob.casestudy.digitalbanking.repositories.*;
+import com.mob.casestudy.digitalbanking.embeddables.CustomerSecurityImagesId;
+import com.mob.casestudy.digitalbanking.embeddables.CustomerOtpId;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.digitalbanking.openapi.model.PreferredLanguage;
+import com.mob.casestudy.digitalbanking.repositories.*;
+import com.mob.casestudy.digitalbanking.entities.*;
 import org.springframework.stereotype.Component;
+import com.digitalbanking.openapi.model.Status;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -37,13 +38,13 @@ public class DataInsertion {
     @Transactional
     public void addCustomerWithTheirRespectiveQuestionAndAnswer(){
 
-        Customer customer = Customer.builder().userName("UzairKhan2706").firstName("Uzair").lastName("Khan").phoneNumber("7226803020").email("uzairkhan27@gmail.com").status(Customer.CustomerStatus.ACTIVE)
+        Customer customer = Customer.builder().userName("UzairKhan2706").firstName("Uzair").lastName("Khan").phoneNumber("7226803020").email("uzairkhan27@gmail.com").status(Status.ACTIVE)
                 .preferredLanguage(PreferredLanguage.EN).externalId("42069").createdBy("Me").createdOn(LocalDateTime.now()).updatedBy("Again Me").updatedOn(LocalDateTime.now()).build();
 
-        Customer customer1 = Customer.builder().userName("NeelKoshti247").firstName("Neel").lastName("Koshti").phoneNumber("8654332664").email("neelkoshti247@gmail.com").status(Customer.CustomerStatus.INACTIVE)
+        Customer customer1 = Customer.builder().userName("NeelKoshti247").firstName("Neel").lastName("Koshti").phoneNumber("8654332664").email("neelkoshti247@gmail.com").status(Status.INACTIVE)
                 .preferredLanguage(PreferredLanguage.FR).externalId("69069").createdBy("Avengers").createdOn(LocalDateTime.now()).updatedBy("Assemble").updatedOn(LocalDateTime.now()).build();
 
-        Customer customer2 = Customer.builder().userName("Siddu26").firstName("Siddharth").lastName("Unknown").phoneNumber("9458907652").email("siddhu26@gmail.com").status(Customer.CustomerStatus.PENDING)
+        Customer customer2 = Customer.builder().userName("Siddu26").firstName("Siddharth").lastName("Unknown").phoneNumber("9458907652").email("siddhu26@gmail.com").status(Status.PENDING)
                 .preferredLanguage(PreferredLanguage.DE).externalId("31032").createdBy("Still").createdOn(LocalDateTime.now()).updatedBy("Unknown").updatedOn(LocalDateTime.now()).build();
 
 

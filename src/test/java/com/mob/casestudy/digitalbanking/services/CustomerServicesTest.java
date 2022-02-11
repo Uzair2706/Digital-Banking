@@ -1,18 +1,18 @@
 package com.mob.casestudy.digitalbanking.services;
 
-import com.digitalbanking.openapi.model.CreateCustomerRequest;
-import com.digitalbanking.openapi.model.CreateCustomerResponse;
-import com.mob.casestudy.digitalbanking.entities.Customer;
-import com.mob.casestudy.digitalbanking.helpers.ValidationHelper;
 import com.mob.casestudy.digitalbanking.repositories.CustomerRepo;
+import com.mob.casestudy.digitalbanking.helpers.ValidationHelper;
+import com.digitalbanking.openapi.model.CreateCustomerResponse;
+import com.digitalbanking.openapi.model.CreateCustomerRequest;
+import com.mob.casestudy.digitalbanking.entities.Customer;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.http.ResponseEntity;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.ResponseEntity;
+import org.mockito.Mock;
 import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)

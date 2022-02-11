@@ -1,18 +1,18 @@
 package com.mob.casestudy.digitalbanking.services;
 
 import com.digitalbanking.openapi.model.GetCustomerSecurityQuestionResponse;
-import com.digitalbanking.openapi.model.SecurityQuestion;
-import com.mob.casestudy.digitalbanking.constants.Constants;
 import com.mob.casestudy.digitalbanking.entities.CustomerSecurityQuestions;
 import com.mob.casestudy.digitalbanking.entities.SecurityQuestions;
 import com.mob.casestudy.digitalbanking.helpers.ValidationHelper;
+import com.mob.casestudy.digitalbanking.constants.Constants;
+import com.digitalbanking.openapi.model.SecurityQuestion;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.http.ResponseEntity;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.*;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.ResponseEntity;
 import java.time.LocalDateTime;
+import org.mockito.*;
 import java.util.*;
 
 @ExtendWith(MockitoExtension.class)

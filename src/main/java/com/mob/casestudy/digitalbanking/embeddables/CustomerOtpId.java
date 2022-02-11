@@ -1,9 +1,9 @@
 package com.mob.casestudy.digitalbanking.embeddables;
 
-import lombok.*;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.UUID;
+import lombok.*;
 
 @Embeddable
 @AllArgsConstructor

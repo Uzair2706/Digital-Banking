@@ -1,8 +1,8 @@
 package com.mob.casestudy.digitalbanking.embeddables;
 
-import lombok.*;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import lombok.*;
 
 @Embeddable
 @Builder

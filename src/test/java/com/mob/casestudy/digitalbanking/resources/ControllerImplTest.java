@@ -1,18 +1,18 @@
 package com.mob.casestudy.digitalbanking.resources;
 
-import com.digitalbanking.openapi.model.CreateCustomerRequest;
-import com.digitalbanking.openapi.model.CreateCustomerSecurityImageRequest;
-import com.digitalbanking.openapi.model.InitiateOtpRequest;
-import com.mob.casestudy.digitalbanking.services.CustomerOtpServices;
-import com.mob.casestudy.digitalbanking.services.CustomerSecurityImageServices;
 import com.mob.casestudy.digitalbanking.services.CustomerSecurityQuestionServices;
+import com.mob.casestudy.digitalbanking.services.CustomerSecurityImageServices;
+import com.digitalbanking.openapi.model.CreateCustomerSecurityImageRequest;
+import com.mob.casestudy.digitalbanking.services.CustomerOtpServices;
 import com.mob.casestudy.digitalbanking.services.CustomerServices;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import com.digitalbanking.openapi.model.CreateCustomerRequest;
+import com.digitalbanking.openapi.model.InitiateOtpRequest;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mockito;
+import org.mockito.Mock;
 
 @ExtendWith(MockitoExtension.class)
 class ControllerImplTest {
