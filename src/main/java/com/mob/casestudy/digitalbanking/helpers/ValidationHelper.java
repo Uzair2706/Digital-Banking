@@ -7,6 +7,7 @@ import com.mob.casestudy.digitalbanking.entities.CustomerSecurityQuestions;
 import com.mob.casestudy.digitalbanking.entities.SecurityImages;
 import com.mob.casestudy.digitalbanking.exceptions.BadRequestExceptions;
 import com.mob.casestudy.digitalbanking.exceptions.NotFoundExceptions;
+import com.mob.casestudy.digitalbanking.configurations.RegexValues;
 import com.mob.casestudy.digitalbanking.repositories.CustomerRepo;
 import com.mob.casestudy.digitalbanking.repositories.SecurityImagesRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-
 import static com.mob.casestudy.digitalbanking.constants.Constants.*;
 
 @Component
@@ -24,6 +24,8 @@ public class ValidationHelper {
     CustomerRepo customerRepo;
     @Autowired
     SecurityImagesRepo securityImagesRepo;
+    @Autowired
+    RegexValues regexValues;
 
     public Customer validateCustomer(String userName,String code){
         Optional<Customer> customer = customerRepo.findByUserName(userName);
@@ -50,9 +52,9 @@ public class ValidationHelper {
     }
 
     public void validations(CreateCustomerRequest createCustomerRequest) {
-        validateMandatoryFields(createCustomerRequest.getUserName(), REGEX_FOR_USERNAME, USERNAME_INVALID_CODE, USERNAME_INVALID_DESCRIPTION);
-        validateMandatoryFields(createCustomerRequest.getEmail(), REGEX_FOR_EMAIL, EMAIL_INVALID_CODE, EMAIL_INVALID_DESCRIPTION);
-        validateMandatoryFields(createCustomerRequest.getPhoneNumber(), REGEX_FOR_PHONE_NUMBER, PHONE_NO_INVALID_CODE, PHONE_NO_INVALID_DESCRIPTION);
+        validateMandatoryFields(createCustomerRequest.getUserName(), regexValues.getUserRegex(), USERNAME_INVALID_CODE, USERNAME_INVALID_DESCRIPTION);
+        validateMandatoryFields(createCustomerRequest.getEmail(), regexValues.getEmailRegex(), EMAIL_INVALID_CODE, EMAIL_INVALID_DESCRIPTION);
+        validateMandatoryFields(createCustomerRequest.getPhoneNumber(), regexValues.getPhoneRegex(), PHONE_NO_INVALID_CODE, PHONE_NO_INVALID_DESCRIPTION);
         validatePreferredLanguage(createCustomerRequest);
     }
 

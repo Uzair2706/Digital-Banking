@@ -49,6 +49,4 @@ public class CustomizedResponseEntityHandler extends ResponseEntityExceptionHand
         ExceptionResponse exceptionResponse = new ExceptionResponse(PREF_LANG_CODE,PREF_LANG_DESCRIPTION);
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
-
-
 }

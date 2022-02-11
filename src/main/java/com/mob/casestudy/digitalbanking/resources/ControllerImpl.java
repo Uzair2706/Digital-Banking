@@ -43,4 +43,9 @@ public class ControllerImpl implements ClientApiApi {
     public ResponseEntity<Void> saveSecurityImageById(String username, CreateCustomerSecurityImageRequest createCustomerSecurityImageRequest) {
         return customerSecurityImageServices.storeImages(username,createCustomerSecurityImageRequest);
     }
+
+    @Override
+    public ResponseEntity<Void> patchCustomerByUserName(String username, PatchCustomerRequest patchCustomerRequest) {
+        return customerServices.updateCustomer(username,patchCustomerRequest);
+    }
 }

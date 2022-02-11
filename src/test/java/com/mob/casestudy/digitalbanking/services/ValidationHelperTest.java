@@ -2,6 +2,7 @@ package com.mob.casestudy.digitalbanking.services;
 
 import com.digitalbanking.openapi.model.CreateCustomerRequest;
 import com.digitalbanking.openapi.model.PreferredLanguage;
+import com.mob.casestudy.digitalbanking.configurations.RegexValues;
 import com.mob.casestudy.digitalbanking.entities.Customer;
 import com.mob.casestudy.digitalbanking.entities.SecurityImages;
 import com.mob.casestudy.digitalbanking.exceptions.BadRequestExceptions;
@@ -27,6 +28,8 @@ class ValidationHelperTest {
     CustomerRepo customerRepo;
     @Mock
     SecurityImagesRepo securityImagesRepo;
+    @Mock
+    RegexValues regexValues;
 
     @Test
     void validateCustomer_shouldValidateCustomerWithTheirName() {
@@ -78,6 +81,9 @@ class ValidationHelperTest {
     void validations_withPositiveResponse(){
         CreateCustomerRequest createCustomerRequest = new CreateCustomerRequest().userName("MichaelScott")
                 .email("xyz@gmail.com").phoneNumber("7226803020").preferredLanguage(PreferredLanguage.EN);
+        Mockito.when(regexValues.getUserRegex()).thenReturn("^[A-Za-z][A-Za-z0-9_]{7,29}$");
+        Mockito.when(regexValues.getEmailRegex()).thenReturn("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$");
+        Mockito.when(regexValues.getPhoneRegex()).thenReturn("[0-9]{10}");
         Assertions.assertDoesNotThrow(()->validationHelper.validations(createCustomerRequest));
     }
 

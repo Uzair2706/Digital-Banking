@@ -1,19 +1,20 @@
 package com.mob.casestudy.digitalbanking.services;
 
+import com.mob.casestudy.digitalbanking.exceptions.BadRequestExceptions;
+import static com.mob.casestudy.digitalbanking.constants.Constants.*;
+import com.mob.casestudy.digitalbanking.repositories.CustomerOtpRepo;
+import com.mob.casestudy.digitalbanking.configurations.OtpConstant;
+import com.mob.casestudy.digitalbanking.helpers.ValidationHelper;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.mob.casestudy.digitalbanking.entities.CustomerOtp;
 import com.digitalbanking.openapi.model.InitiateOtpRequest;
 import com.mob.casestudy.digitalbanking.entities.Customer;
-import com.mob.casestudy.digitalbanking.entities.CustomerOtp;
-import com.mob.casestudy.digitalbanking.exceptions.BadRequestExceptions;
-import com.mob.casestudy.digitalbanking.helpers.ValidationHelper;
-import com.mob.casestudy.digitalbanking.repositories.CustomerOtpRepo;
-import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import static com.mob.casestudy.digitalbanking.constants.Constants.*;
 import javax.transaction.Transactional;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import lombok.SneakyThrows;
 import java.util.Objects;
 
 @Service
@@ -23,6 +24,8 @@ public class CustomerOtpServices {
     ValidationHelper validationHelper;
     @Autowired
     CustomerOtpRepo customerOtpRepo;
+    @Autowired
+    OtpConstant otpConstant;
 
     @Transactional
     public ResponseEntity<Void> initiatingOtpForCustomer(InitiateOtpRequest initiateOtpRequest) {
@@ -51,7 +54,7 @@ public class CustomerOtpServices {
     @SneakyThrows
     private String generateOtp() {
         SecureRandom secureRandomGenerator = SecureRandom.getInstance("SHA1PRNG");
-        int range = secureRandomGenerator.nextInt(100000, 999999);
+        int range = secureRandomGenerator.nextInt(otpConstant.getOrigin(), otpConstant.getBound());
         return String.valueOf(range);
     }
 }
