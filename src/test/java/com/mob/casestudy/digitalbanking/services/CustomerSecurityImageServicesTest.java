@@ -1,21 +1,21 @@
 package com.mob.casestudy.digitalbanking.services;
 
-import com.digitalbanking.openapi.model.CreateCustomerSecurityImageRequest;
-import com.digitalbanking.openapi.model.PreferredLanguage;
-import com.digitalbanking.openapi.model.Status;
-import com.mob.casestudy.digitalbanking.entities.Customer;
-import com.mob.casestudy.digitalbanking.entities.SecurityImages;
-import com.mob.casestudy.digitalbanking.helpers.ValidationHelper;
 import com.mob.casestudy.digitalbanking.repositories.CustomerSecurityImagesRepo;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+import com.digitalbanking.openapi.model.CreateCustomerSecurityImageRequest;
 import static com.mob.casestudy.digitalbanking.constants.Constants.*;
+import com.mob.casestudy.digitalbanking.helpers.ValidationHelper;
+import com.mob.casestudy.digitalbanking.entities.SecurityImages;
+import com.mob.casestudy.digitalbanking.entities.Customer;
+import com.digitalbanking.openapi.model.PreferredLanguage;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import com.digitalbanking.openapi.model.Status;
 import javax.persistence.EntityManager;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import java.time.LocalDateTime;
+import org.mockito.Mockito;
+import org.mockito.Mock;
 import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)
@@ -24,9 +24,9 @@ class CustomerSecurityImageServicesTest {
     @InjectMocks
     CustomerSecurityImageServices customerSecurityImageServices;
     @Mock
-    ValidationHelper validationHelper;
-    @Mock
     CustomerSecurityImagesRepo customerSecurityImagesRepo;
+    @Mock
+    ValidationHelper validationHelper;
     @Mock
     EntityManager entityManager;
 

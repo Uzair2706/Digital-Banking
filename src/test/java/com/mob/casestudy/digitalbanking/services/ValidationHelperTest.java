@@ -19,12 +19,12 @@ import java.util.*;
 @ExtendWith(MockitoExtension.class)
 class ValidationHelperTest {
 
+    @Mock
+    SecurityImagesRepo securityImagesRepo;
     @InjectMocks
     ValidationHelper validationHelper;
     @Mock
     CustomerRepo customerRepo;
-    @Mock
-    SecurityImagesRepo securityImagesRepo;
     @Mock
     RegexValues regexValues;
 
@@ -75,7 +75,7 @@ class ValidationHelperTest {
     }
 
     @Test
-    void validations_withPositiveResponse(){
+    void validations_withValidInput_shouldNotThrowAnException(){
         CreateCustomerRequest createCustomerRequest = new CreateCustomerRequest().userName("MichaelScott")
                 .email("xyz@gmail.com").phoneNumber("7226803020").preferredLanguage(PreferredLanguage.EN);
         Mockito.when(regexValues.getUserRegex()).thenReturn("^[A-Za-z][A-Za-z0-9_]{7,29}$");
@@ -85,14 +85,14 @@ class ValidationHelperTest {
     }
 
     @Test
-    void verifyingUsernameFromDatabase(){
+    void verifyingFromDatabase_withNoUserNameFound_shouldThrowAnException(){
         CreateCustomerRequest createCustomerRequest = new CreateCustomerRequest();
         Mockito.when(customerRepo.existsByUserName(createCustomerRequest.getUserName())).thenReturn(true);
         Assertions.assertThrows(BadRequestExceptions.class, () -> validationHelper.verifyingUsernameFromDatabase(createCustomerRequest));
     }
 
     @Test
-    void validateCaption(){
+    void validateCaption_withInvalidInput_shouldThrowAnException(){
         Assertions.assertThrows(BadRequestExceptions.class, () -> validationHelper.validateCaption(null));
         Assertions.assertThrows(BadRequestExceptions.class, () -> validationHelper.validateCaption(""));
         Assertions.assertThrows(BadRequestExceptions.class, () -> validationHelper.validateCaption("UK"));

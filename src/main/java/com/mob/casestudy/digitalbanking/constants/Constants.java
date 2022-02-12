@@ -35,13 +35,13 @@ public final class Constants {
     public static final String NON_UNIQUE_USERNAME_DESCRIPTION = "This username is already in use, chose a unique one";
 
     public static final String UPD_MAND_CODE = "CUS-UPDATE-FIE-001";
-    public static final String UPD_MAND_DESCRIPTION = "CUS-UPDATE-FIE-001";
+    public static final String UPD_MAND_DESCRIPTION = "All the Mandatory Fields should be validated";
     public static final String UPD_PHN_CODE = "CUS-UPDATE-FIE-002";
-    public static final String UPD_PHN_DESCRIPTION = "CUS-UPDATE-FIE-002";
+    public static final String UPD_PHN_DESCRIPTION = "The number to be updated is not in the proper format";
     public static final String UPD_EML_CODE = "CUS-UPDATE-FIE-003";
-    public static final String UPD_EML_DESCRIPTION = "CUS-UPDATE-FIE-003";
+    public static final String UPD_EML_DESCRIPTION = "Updating an Email requires a proper format ";
     public static final String UPD_PREF_CODE = "CUS-UPDATE-FIE-004";
-    public static final String UPD_PREF_DESCRIPTION = "CUS-UPDATE-FIE-004";
+    public static final String UPD_PREF_DESCRIPTION = "Preferred Language is not in proper format,Try using EN,FR,DE";
     public static final String UPD_CUS_CODE = "CUS-UPDATE-NFD-001";
 
 }

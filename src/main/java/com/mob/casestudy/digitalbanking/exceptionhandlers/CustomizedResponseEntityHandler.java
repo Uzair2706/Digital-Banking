@@ -50,17 +50,12 @@ public class CustomizedResponseEntityHandler extends ResponseEntityExceptionHand
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
-//    @Override
-//    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-//        ExceptionResponse exceptionResponse = new ExceptionResponse(PREF_LANG_CODE,PREF_LANG_DESCRIPTION);
-//        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
-//    }
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         ExceptionResponse exceptionResponse = null;
         if (Objects.requireNonNull(ex.getMessage()).contains(CreateCustomerRequest.class.getName()))
             exceptionResponse = new ExceptionResponse(PREF_LANG_CODE, PREF_LANG_DESCRIPTION);
-        else if (PatchCustomerRequest.class.getName().contains(ex.getMessage())){
+        else if (ex.getMessage().contains("PreferredLanguage")){
             exceptionResponse = new ExceptionResponse(UPD_PREF_CODE,UPD_PREF_DESCRIPTION);
         }
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);

@@ -17,16 +17,16 @@ import org.mockito.Mock;
 @ExtendWith(MockitoExtension.class)
 class ControllerImplTest {
 
-    @InjectMocks
-    ControllerImpl controller;
-    @Mock
-    CustomerServices customerServices;
-    @Mock
-    CustomerOtpServices customerOtpServices;
     @Mock
     CustomerSecurityQuestionServices customerSecurityQuestionServices;
     @Mock
     CustomerSecurityImageServices customerSecurityImageServices;
+    @Mock
+    CustomerOtpServices customerOtpServices;
+    @Mock
+    CustomerServices customerServices;
+    @InjectMocks
+    ControllerImpl controller;
 
     @Test
     void postCustomers() {
