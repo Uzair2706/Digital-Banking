@@ -1,0 +1,31 @@
+spring:
+  main:
+    allow-circular_references: 'true'
+  jpa:
+    database: POSTGRESQL
+    show-sql: 'true'
+    generate-ddl: 'true'
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5433/DigitalBanking?escapeSyntaxCallMode=call
+    username: postgres
+    password: uzair@786
+    driver-class-name: org.postgresql.Driver
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: 'true'
+server:
+  port: 8055
+  error:
+    include-stacktrade: never
+regex:
+  email: ^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$
+  phone: ^[0-9]{10}$
+  username: ^[A-Za-z][A-Za-z0-9_]{7,29}$
+otp:
+  origin: '100000'
+  bound: '999999'
+customer:
+  age: 'https://api.agify.io/?name='
