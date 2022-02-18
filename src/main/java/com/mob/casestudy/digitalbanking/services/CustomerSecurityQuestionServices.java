@@ -1,5 +1,6 @@
 package com.mob.casestudy.digitalbanking.services;
 
+import com.mob.casestudy.digitalbanking.mappers.CustomerSecurityQuestionMapperImpl;
 import com.digitalbanking.openapi.model.GetCustomerSecurityQuestionResponse;
 import static com.mob.casestudy.digitalbanking.constants.Constants.*;
 import com.mob.casestudy.digitalbanking.helpers.ValidationHelper;
@@ -16,17 +17,13 @@ public class CustomerSecurityQuestionServices {
 
     @Autowired
     ValidationHelper validationHelper;
+    @Autowired
+    CustomerSecurityQuestionMapperImpl customerSecurityQuestionMapper;
 
     @Transactional
     public ResponseEntity<GetCustomerSecurityQuestionResponse> retrieveQuestions(String userName) {
         List<CustomerSecurityQuestions> customerSecurityQuestions = validationHelper.validateQuestionsWithCustomer(userName, USER_NOT_VALID);
-        List<SecurityQuestion> securityQuestions = customerSecurityQuestions.stream().map(this::toDto).toList();
+        List<SecurityQuestion> securityQuestions = customerSecurityQuestions.stream().map(customerSecurityQuestionMapper::toDto).toList();
         return ResponseEntity.ok().body(new GetCustomerSecurityQuestionResponse().securityQuestions(securityQuestions));
-    }
-
-    private SecurityQuestion toDto(CustomerSecurityQuestions customerSecurityQuestions) {
-        return new SecurityQuestion().securityQuestionId(customerSecurityQuestions.getSecurityQuestions().getId().toString())
-                .securityQuestionText(customerSecurityQuestions.getSecurityQuestions().getSecurityQuestionText())
-                .securityQuestionAnswer(customerSecurityQuestions.getSecurityQuestionAnswer());
     }
 }

@@ -36,6 +36,9 @@ public class Customer {
     @Column(length = 10)
     private String phoneNumber;
 
+    @Column(length = 3)
+    private String age;
+
     @Column(length = 50)
     private String email;
 

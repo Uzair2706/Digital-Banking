@@ -27,6 +27,7 @@ public class CustomerOtp {
     private Integer otpRetries;
 
     private LocalDateTime expiryOn;
+
     private LocalDateTime createdOn;
 
     @OneToOne

@@ -1,5 +1,6 @@
 package com.mob.casestudy.digitalbanking.exceptionhandlers;
 
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import com.digitalbanking.openapi.model.CreateCustomerSecurityImageRequest;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -7,7 +8,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.digitalbanking.openapi.model.CreateCustomerRequest;
-import com.digitalbanking.openapi.model.PatchCustomerRequest;
 import org.springframework.web.context.request.WebRequest;
 import com.mob.casestudy.digitalbanking.exceptions.*;
 import org.springframework.http.ResponseEntity;
@@ -41,9 +41,6 @@ public class CustomizedResponseEntityHandler extends ResponseEntityExceptionHand
         else if (ex.getMessage().contains(CreateCustomerSecurityImageRequest.class.getName())){
             exceptionResponse = new ExceptionResponse(FIELD_NOT_FOUND_CODE,FIELD_NOT_FOUND_DESCRIPTION);
         }
-        else if (ex.getMessage().contains(PatchCustomerRequest.class.getName())){
-            exceptionResponse = new ExceptionResponse(UPD_MAND_CODE,UPD_MAND_DESCRIPTION);
-        }
         else {
             exceptionResponse = new ExceptionResponse("Unexpected Exception", ex.getMessage());
         }
@@ -55,10 +52,15 @@ public class CustomizedResponseEntityHandler extends ResponseEntityExceptionHand
         ExceptionResponse exceptionResponse = null;
         if (Objects.requireNonNull(ex.getMessage()).contains(CreateCustomerRequest.class.getName()))
             exceptionResponse = new ExceptionResponse(PREF_LANG_CODE, PREF_LANG_DESCRIPTION);
-        else if (ex.getMessage().contains("PreferredLanguage")){
+        else if (ex.getMessage().contains("PreferredLanguage") || ex.getMessage().contains("Status")){
             exceptionResponse = new ExceptionResponse(UPD_PREF_CODE,UPD_PREF_DESCRIPTION);
         }
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 
+    @Override
+    protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(UPD_MAND_CODE,UPD_MAND_DESCRIPTION);
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
 }

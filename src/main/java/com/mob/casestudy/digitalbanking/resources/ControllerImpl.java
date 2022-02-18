@@ -1,9 +1,6 @@
 package com.mob.casestudy.digitalbanking.resources;
 
-import com.mob.casestudy.digitalbanking.services.CustomerSecurityQuestionServices;
-import com.mob.casestudy.digitalbanking.services.CustomerSecurityImageServices;
-import com.mob.casestudy.digitalbanking.services.CustomerOtpServices;
-import com.mob.casestudy.digitalbanking.services.CustomerServices;
+import com.mob.casestudy.digitalbanking.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +20,8 @@ public class ControllerImpl implements ClientApiApi {
     CustomerSecurityQuestionServices customerSecurityQuestionServices;
     @Autowired
     CustomerSecurityImageServices customerSecurityImageServices;
+    @Autowired
+    SecurityQuestionServices securityQuestionServices;
 
     @Override
     public ResponseEntity<CreateCustomerResponse> postCustomers(CreateCustomerRequest createCustomerRequest) {
@@ -47,5 +46,10 @@ public class ControllerImpl implements ClientApiApi {
     @Override
     public ResponseEntity<Void> patchCustomerByUserName(String username, PatchCustomerRequest patchCustomerRequest) {
         return customerServices.updateCustomer(username,patchCustomerRequest);
+    }
+
+    @Override
+    public ResponseEntity<GetSecurityQuestionsResponse> getSecurityQuestions() {
+        return securityQuestionServices.getSecurityQuestions();
     }
 }

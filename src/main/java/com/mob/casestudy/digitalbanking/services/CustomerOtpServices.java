@@ -1,8 +1,9 @@
 package com.mob.casestudy.digitalbanking.services;
 
 import com.mob.casestudy.digitalbanking.exceptions.BadRequestExceptions;
-import static com.mob.casestudy.digitalbanking.constants.Constants.*;
+import com.mob.casestudy.digitalbanking.mappers.CustomerOtpMapperImpl;
 import com.mob.casestudy.digitalbanking.repositories.CustomerOtpRepo;
+import static com.mob.casestudy.digitalbanking.constants.Constants.*;
 import com.mob.casestudy.digitalbanking.configurations.OtpConstant;
 import com.mob.casestudy.digitalbanking.helpers.ValidationHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,29 +27,26 @@ public class CustomerOtpServices {
     CustomerOtpRepo customerOtpRepo;
     @Autowired
     OtpConstant otpConstant;
+    @Autowired
+    CustomerOtpMapperImpl customerOtpMapper;
 
     @Transactional
     public ResponseEntity<Void> initiatingOtpForCustomer(InitiateOtpRequest initiateOtpRequest) {
         String userName = initiateOtpRequest.getUserName();
         Customer customer = validationHelper.validateCustomer(userName, CUSTOMER_WITH_INVALID_CODE);
         String templateId = initiateOtpRequest.getTemplateId();
-        CustomerOtp customerOtp = getCustomerOtp(customer, templateId);
+        String otp = generateOtp();
+        String otpMessage = otpMessage(templateId, otp);
+        CustomerOtp customerOtp = customerOtpMapper.initiatingOtpForCustomer(initiateOtpRequest, LocalDateTime.now(), otp, customer, otpMessage, customer.getCustomerOtp());
         customerOtpRepo.save(customerOtp);
         return ResponseEntity.ok().build();
     }
 
-    private CustomerOtp getCustomerOtp(Customer customer, String templateId) {
-        CustomerOtp customerOtp = customer.getCustomerOtp();
-        String otp = generateOtp();
-        return customerOtp.withOtp(otp).withCustomer(customer).withOtpMessage(otpMessage(templateId, otp))
-                .withCreatedOn(LocalDateTime.now()).withExpiryOn(LocalDateTime.now().plusMinutes(5));
-    }
-
     private String otpMessage(String templateId, String otp) {
-        if (Objects.isNull(templateId)|| templateId.isEmpty()) return DEFAULT_OTP + otp;
+        if (Objects.isNull(templateId) || templateId.isEmpty()) return DEFAULT_OTP + otp;
         else if (templateId.equalsIgnoreCase("REGISTRATION")) return REG_OTP + otp;
         else if (templateId.equalsIgnoreCase("LOGIN")) return LOGIN_OTP + otp;
-        else throw new BadRequestExceptions(TEMPLATE_ID_NOT_VALID,TEMPLATE_ID_NOT_VALID_DESCRIPTION);
+        else throw new BadRequestExceptions(TEMPLATE_ID_NOT_VALID, TEMPLATE_ID_NOT_VALID_DESCRIPTION);
     }
 
     @SneakyThrows

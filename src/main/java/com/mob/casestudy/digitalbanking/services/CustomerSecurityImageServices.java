@@ -1,5 +1,7 @@
 package com.mob.casestudy.digitalbanking.services;
 
+import com.mob.casestudy.digitalbanking.embeddables.CustomerSecurityImagesId;
+import com.mob.casestudy.digitalbanking.mappers.CustomerSecurityImageMapperImpl;
 import com.mob.casestudy.digitalbanking.repositories.CustomerSecurityImagesRepo;
 import com.digitalbanking.openapi.model.CreateCustomerSecurityImageRequest;
 import com.mob.casestudy.digitalbanking.entities.CustomerSecurityImages;
@@ -26,6 +28,9 @@ public class CustomerSecurityImageServices {
     CustomerSecurityImagesRepo customerSecurityImagesRepo;
     @PersistenceContext
     EntityManager entityManager;
+    @Autowired
+    CustomerSecurityImageMapperImpl customerSecurityImageMapper;
+
 
     @Transactional
     public ResponseEntity<Void> storeImages(String userName, CreateCustomerSecurityImageRequest createCustomerSecurityImageRequest) {
@@ -34,21 +39,14 @@ public class CustomerSecurityImageServices {
         deleteStoredImage(images);
         SecurityImages securityImages = validationHelper.validateImageId(createCustomerSecurityImageRequest.getSecurityImageId(), SECURITY_IMAGE_NOT_FOUND_CODE);
         validationHelper.validateCaption(createCustomerSecurityImageRequest.getSecurityImageCaption());
-        customerSecurityImagesRepo.save(getCustomerSecurityImages(createCustomerSecurityImageRequest, customer, securityImages));
+        CustomerSecurityImages customerSecurityImages = customerSecurityImageMapper.updateCustomerSecurityImageByCustomer(createCustomerSecurityImageRequest, customer, securityImages, new CustomerSecurityImagesId());
+        customerSecurityImagesRepo.save(customerSecurityImages);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    private CustomerSecurityImages getCustomerSecurityImages(CreateCustomerSecurityImageRequest createCustomerSecurityImageRequest, Customer customer, SecurityImages securityImages) {
-        CustomerSecurityImages customerSecurityImages = new CustomerSecurityImages();
-        customerSecurityImages.setCustomer(customer);
-        customerSecurityImages.setSecurityImages(securityImages);
-        customerSecurityImages.setSecurityImageCaption(createCustomerSecurityImageRequest.getSecurityImageCaption());
-        return customerSecurityImages;
-    }
-
-    private void deleteStoredImage(CustomerSecurityImages images) {
-        if (images != null) {
-            customerSecurityImagesRepo.delete(images);
+    private void deleteStoredImage(CustomerSecurityImages customerSecurityImages) {
+        if (customerSecurityImages != null) {
+            customerSecurityImagesRepo.delete(customerSecurityImages);
             customerSecurityImagesRepo.flush();
         }
         entityManager.clear();

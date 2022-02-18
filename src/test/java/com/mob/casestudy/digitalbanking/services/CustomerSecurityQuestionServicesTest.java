@@ -1,5 +1,6 @@
 package com.mob.casestudy.digitalbanking.services;
 
+import com.mob.casestudy.digitalbanking.mappers.CustomerSecurityQuestionMapperImpl;
 import com.digitalbanking.openapi.model.GetCustomerSecurityQuestionResponse;
 import com.mob.casestudy.digitalbanking.entities.CustomerSecurityQuestions;
 import com.mob.casestudy.digitalbanking.entities.SecurityQuestions;
@@ -22,6 +23,8 @@ class CustomerSecurityQuestionServicesTest {
     CustomerSecurityQuestionServices customerSecurityQuestionServices;
     @Mock
     ValidationHelper validationHelper;
+    @Mock
+    CustomerSecurityQuestionMapperImpl customerSecurityQuestionMapper;
 
     @Test
     void retrieveQuestions_withCorrectUserName_willReturnCustomerSecurityQuestions() {
@@ -33,6 +36,7 @@ class CustomerSecurityQuestionServicesTest {
         CustomerSecurityQuestions customerSecurityQuestions = CustomerSecurityQuestions.builder().securityQuestionAnswer("The-Office").createdOn(LocalDateTime.now()).build();
         customerSecurityQuestions.setSecurityQuestions(securityQuestions);
         SecurityQuestion securityQuestion = new SecurityQuestion().securityQuestionId(id.toString()).securityQuestionText("Favorite Show?").securityQuestionAnswer("The-Office");
+        Mockito.when(customerSecurityQuestionMapper.toDto(customerSecurityQuestions)).thenReturn(securityQuestion);
         List<SecurityQuestion> securityQuestionsDtoList = List.of(securityQuestion);
         ResponseEntity<GetCustomerSecurityQuestionResponse> expected = ResponseEntity.ok().body(new GetCustomerSecurityQuestionResponse().securityQuestions(securityQuestionsDtoList));
         Mockito.when(validationHelper.validateQuestionsWithCustomer(userName, Constants.USER_NOT_VALID)).thenReturn(List.of(customerSecurityQuestions));

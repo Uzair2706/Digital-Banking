@@ -1,5 +1,7 @@
 package com.mob.casestudy.digitalbanking.services;
 
+import com.mob.casestudy.digitalbanking.embeddables.CustomerSecurityImagesId;
+import com.mob.casestudy.digitalbanking.mappers.CustomerSecurityImageMapperImpl;
 import com.mob.casestudy.digitalbanking.repositories.CustomerSecurityImagesRepo;
 import com.digitalbanking.openapi.model.CreateCustomerSecurityImageRequest;
 import static com.mob.casestudy.digitalbanking.constants.Constants.*;
@@ -16,6 +18,8 @@ import org.mockito.InjectMocks;
 import java.time.LocalDateTime;
 import org.mockito.Mockito;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,6 +33,8 @@ class CustomerSecurityImageServicesTest {
     ValidationHelper validationHelper;
     @Mock
     EntityManager entityManager;
+    @Mock
+    CustomerSecurityImageMapperImpl customerSecurityImageMapper;
 
     @Test
     void storingImages_forCustomer_withValidInput() {
@@ -43,8 +49,10 @@ class CustomerSecurityImageServicesTest {
         Mockito.when(validationHelper.validateCustomer(userName, CUSTOMER_NOT_VALID)).thenReturn(customer);
         Mockito.when(validationHelper.validateImageId(createCustomerSecurityImageRequest.getSecurityImageId(),SECURITY_IMAGE_NOT_FOUND_CODE)).thenReturn(images);
         customerSecurityImageServices.storeImages(userName, createCustomerSecurityImageRequest);
+        Mockito.verify(entityManager).clear();
         Mockito.verify(validationHelper).validateCustomer(userName, CUSTOMER_NOT_VALID);
         Mockito.verify(validationHelper).validateImageId(createCustomerSecurityImageRequest.getSecurityImageId(),SECURITY_IMAGE_NOT_FOUND_CODE);
         Mockito.verify(customerSecurityImagesRepo).save(Mockito.any());
+        Mockito.verify(customerSecurityImageMapper).updateCustomerSecurityImageByCustomer(createCustomerSecurityImageRequest,customer,images,new CustomerSecurityImagesId());
     }
 }
