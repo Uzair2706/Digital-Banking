@@ -1,20 +1,19 @@
 package com.mob.casestudy.digitalbanking.services;
 
-import com.mob.casestudy.digitalbanking.configurations.AgeConstant;
-import com.mob.casestudy.digitalbanking.dtos.AgeResponseDto;
 import com.mob.casestudy.digitalbanking.exceptions.BadRequestExceptions;
 import static com.mob.casestudy.digitalbanking.constants.Constants.*;
 import com.mob.casestudy.digitalbanking.configurations.RegexValues;
+import com.mob.casestudy.digitalbanking.configurations.AgeConstant;
 import com.mob.casestudy.digitalbanking.mappers.CustomerMapperImpl;
 import com.mob.casestudy.digitalbanking.repositories.CustomerRepo;
 import com.mob.casestudy.digitalbanking.helpers.ValidationHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.mob.casestudy.digitalbanking.dtos.AgeResponseDto;
 import com.mob.casestudy.digitalbanking.entities.Customer;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.digitalbanking.openapi.model.*;
-import org.springframework.web.client.RestTemplate;
-
 import javax.transaction.Transactional;
 import java.util.Objects;
 

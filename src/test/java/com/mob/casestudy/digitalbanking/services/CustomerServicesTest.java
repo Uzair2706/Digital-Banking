@@ -46,7 +46,7 @@ class CustomerServicesTest {
         AgeResponseDto ageResponseDto = new AgeResponseDto("aaaaa","43","3456");
         Customer customer = new Customer().withId(UUID.randomUUID().toString()).withUserName("UzairKhan2706").withAge("43");
         String userName = customer.getUserName();
-        Mockito.when(customerRepo.save(Mockito.any())).thenReturn(customer);
+        Mockito.when(customerRepo.save(customer)).thenReturn(customer);
         Mockito.when(customerMapper.creatingCustomerFromCustomerDto(createCustomerRequest)).thenReturn(customer);
         Mockito.when(restTemplate.getForObject(uri + userName, AgeResponseDto.class)).thenReturn(ageResponseDto);
         Mockito.when(ageConstant.getUri()).thenReturn(uri);
