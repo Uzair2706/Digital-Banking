@@ -27,9 +27,16 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -99,6 +106,7 @@
 								<delegatePattern>false</delegatePattern>
 								<interfaceOnly>true</interfaceOnly>
 								<useBeanValidation>true</useBeanValidation>
+								<dateLibrary>java8-localdatetime</dateLibrary>
 							</configOptions>
 						</configuration>
 					</execution>
@@ -107,6 +115,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version></version>
 				<configuration>
 					<source>17</source>
 					<target>17</target>

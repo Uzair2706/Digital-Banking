@@ -25,5 +25,6 @@ public class CustomerSecurityQuestionServices {
         List<CustomerSecurityQuestions> customerSecurityQuestions = validationHelper.validateQuestionsWithCustomer(userName, USER_NOT_VALID);
         List<SecurityQuestion> securityQuestions = customerSecurityQuestions.stream().map(customerSecurityQuestionMapper::toDto).toList();
         return ResponseEntity.ok().body(new GetCustomerSecurityQuestionResponse().securityQuestions(securityQuestions));
+
     }
 }

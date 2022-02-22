@@ -1,6 +1,7 @@
 package com.mob.casestudy.digitalbanking.helpers;
 
 import com.mob.casestudy.digitalbanking.entities.CustomerSecurityQuestions;
+import com.mob.casestudy.digitalbanking.repositories.CustomerSecurityImagesRepo;
 import com.mob.casestudy.digitalbanking.repositories.SecurityImagesRepo;
 import com.mob.casestudy.digitalbanking.exceptions.BadRequestExceptions;
 import com.mob.casestudy.digitalbanking.exceptions.NotFoundExceptions;
@@ -80,6 +81,5 @@ public class ValidationHelper {
         if (caption.length() <= 3)
             throw new BadRequestExceptions(CAPTION_NOT_VALID, CAPTION_SIZE_NOT_VALID_DESCRIPTION);
     }
-
 
 }

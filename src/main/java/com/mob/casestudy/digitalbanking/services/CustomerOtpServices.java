@@ -13,6 +13,7 @@ import com.mob.casestudy.digitalbanking.entities.Customer;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import lombok.SneakyThrows;
@@ -49,8 +50,8 @@ public class CustomerOtpServices {
         else throw new BadRequestExceptions(TEMPLATE_ID_NOT_VALID, TEMPLATE_ID_NOT_VALID_DESCRIPTION);
     }
 
-    @SneakyThrows
-    private String generateOtp() {
+    @SneakyThrows(NoSuchAlgorithmException.class)
+    private String generateOtp(){
         SecureRandom secureRandomGenerator = SecureRandom.getInstance("SHA1PRNG");
         int range = secureRandomGenerator.nextInt(otpConstant.getOrigin(), otpConstant.getBound());
         return String.valueOf(range);

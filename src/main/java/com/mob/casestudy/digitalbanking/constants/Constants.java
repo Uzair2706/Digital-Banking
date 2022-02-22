@@ -44,4 +44,10 @@ public final class Constants {
     public static final String UPD_PREF_DESCRIPTION = "Preferred Language is not in proper format,Try using EN,FR,DE";
     public static final String UPD_CUS_CODE = "CUS-UPDATE-NFD-001";
 
+    public static final String GET_CUS_MAND_CODE = "CUS-GET-FIE-001";
+    public static final String GET_CUS_NFD_CODE = "CUS-GET-NFD-001";
+
+    public static final String GET_CUS_MAND_DESCRIPTION = "All the Mandatory Fields should be validated";
+    public static final String GET_CUS_NFD_DESCRIPTION = "Customer is not found with either of the requested parameter";
+
 }

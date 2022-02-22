@@ -18,6 +18,7 @@ public class DigitalBankingApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+
 //        dataInsertion.addCustomerWithTheirRespectiveQuestionAndAnswer();
     }
 }

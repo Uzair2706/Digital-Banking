@@ -15,5 +15,6 @@ public interface CustomerSecurityImagesRepo extends JpaRepository<CustomerSecuri
     @Query("select csi from CustomerSecurityImages csi join csi.customer c where c.userName like :userName")
     Optional<CustomerSecurityImages> findByUserName(String userName);
 
+    CustomerSecurityImages findByCustomerId(String customerId);
 
 }

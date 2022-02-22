@@ -1,6 +1,7 @@
 package com.mob.casestudy.digitalbanking.services;
 
 import com.mob.casestudy.digitalbanking.exceptions.BadRequestExceptions;
+import com.mob.casestudy.digitalbanking.exceptions.NotFoundExceptions;
 import static com.mob.casestudy.digitalbanking.constants.Constants.*;
 import com.mob.casestudy.digitalbanking.configurations.RegexValues;
 import com.mob.casestudy.digitalbanking.configurations.AgeConstant;
@@ -15,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.digitalbanking.openapi.model.*;
 import javax.transaction.Transactional;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class CustomerServices {
@@ -47,7 +48,7 @@ public class CustomerServices {
     public ResponseEntity<Void> updateCustomer(String username, PatchCustomerRequest patchCustomerRequest) {
         Customer customer = validationHelper.validateCustomer(username, UPD_CUS_CODE);
         validateAndUpdate(patchCustomerRequest);
-        customerRepo.save(customerMapper.updateCustomerFromCustomerDto(patchCustomerRequest,customer));
+        customerRepo.save(customerMapper.updateCustomerFromCustomerDto(patchCustomerRequest, customer));
         return ResponseEntity.noContent().build();
     }
 
@@ -72,12 +73,47 @@ public class CustomerServices {
         return patchCustomerRequest;
     }
 
-    private String getMethod(Customer customer){
-
+    private String getMethod(Customer customer) {
         AgeResponseDto ageResponseDto = restTemplate.getForObject(ageConstant.getUri() + customer.getUserName(), AgeResponseDto.class);
         return Objects.requireNonNull(ageResponseDto).getAge();
     }
 
 
+    public ResponseEntity<GetCustomerResponse> getCustomers(String id, String userName) {
+        Customer customer = getCustomerByIdOrUserName(id, userName);
+        return ResponseEntity.ok(customerMapper.toDto(customer));
+    }
+
+    private Customer getCustomerByIdOrUserName(String id, String userName) {
+        if ((id == null || id.isEmpty()) && (userName == null || userName.isEmpty())) {
+            throw new BadRequestExceptions(GET_CUS_MAND_CODE, GET_CUS_MAND_DESCRIPTION);
+        } else if (id != null && userName != null) {
+            return validateCustomerFromTheList(id, userName);
+        }
+        if (id != null && !id.trim().isEmpty())
+            return validateCustomerById(id);
+        else
+            return validationHelper.validateCustomer(userName, GET_CUS_NFD_CODE);
+    }
+
+    private Customer validateCustomerFromTheList(String id, String userName) {
+        List<Customer> customerList = customerRepo.findByUserNameOrId(userName, id);
+        if (customerList.isEmpty()) {
+            throw new NotFoundExceptions(GET_CUS_NFD_CODE, GET_CUS_NFD_DESCRIPTION);
+        }
+        for (Customer customer : customerList) {
+            if (customer.getId().equalsIgnoreCase(id))
+                return customer;
+        }
+        return customerList.get(0);
+    }
+
+    private Customer validateCustomerById(String id) {
+        Optional<Customer> customerRepoById = customerRepo.findById(id);
+        if (customerRepoById.isEmpty()) {
+            throw new NotFoundExceptions(GET_CUS_NFD_CODE, "The customer with id '" + id + "' is not registered with the system");
+        }
+        return customerRepoById.get();
+    }
 }
 
