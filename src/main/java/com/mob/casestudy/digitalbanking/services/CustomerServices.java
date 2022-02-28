@@ -102,7 +102,7 @@ public class CustomerServices {
             throw new NotFoundExceptions(GET_CUS_NFD_CODE, GET_CUS_NFD_DESCRIPTION);
         }
         for (Customer customer : customerList) {
-            if (customer.getId().equalsIgnoreCase(id))
+            if (customer.getId().equals(id))
                 return customer;
         }
         return customerList.get(0);

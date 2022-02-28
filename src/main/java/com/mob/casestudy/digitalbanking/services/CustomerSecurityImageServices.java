@@ -37,7 +37,6 @@ public class CustomerSecurityImageServices {
         Customer customer = validationHelper.validateCustomer(userName, CUSTOMER_NOT_VALID);
         CustomerSecurityImages images = customer.getCustomerSecurityImages();
         deleteStoredImage(images);
-//        validationHelper.validateExistingImage(customer.getId());
         SecurityImages securityImages = validationHelper.validateImageId(createCustomerSecurityImageRequest.getSecurityImageId(), SECURITY_IMAGE_NOT_FOUND_CODE);
         validationHelper.validateCaption(createCustomerSecurityImageRequest.getSecurityImageCaption());
         CustomerSecurityImages customerSecurityImages = customerSecurityImageMapper.updateCustomerSecurityImageByCustomer(createCustomerSecurityImageRequest, customer, securityImages, new CustomerSecurityImagesId());

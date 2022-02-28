@@ -17,9 +17,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.Mock;
-
-import java.security.NoSuchAlgorithmException;
-
 import static com.mob.casestudy.digitalbanking.constants.Constants.*;
 import static org.mockito.ArgumentMatchers.any;
 
