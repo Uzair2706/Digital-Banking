@@ -1,6 +1,8 @@
 package com.mob.casestudy.digitalbanking.helpers;
 
 import com.mob.casestudy.digitalbanking.entities.CustomerSecurityQuestions;
+import com.mob.casestudy.digitalbanking.entities.SecurityQuestions;
+import com.mob.casestudy.digitalbanking.repositories.CustomerSecurityQuestionsRepo;
 import com.mob.casestudy.digitalbanking.repositories.SecurityImagesRepo;
 import com.mob.casestudy.digitalbanking.exceptions.BadRequestExceptions;
 import com.mob.casestudy.digitalbanking.exceptions.NotFoundExceptions;
@@ -9,6 +11,7 @@ import com.mob.casestudy.digitalbanking.configurations.RegexValues;
 import com.mob.casestudy.digitalbanking.repositories.CustomerRepo;
 import com.mob.casestudy.digitalbanking.entities.SecurityImages;
 import com.digitalbanking.openapi.model.CreateCustomerRequest;
+import com.mob.casestudy.digitalbanking.repositories.SecurityQuestionsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.digitalbanking.openapi.model.PreferredLanguage;
 import com.mob.casestudy.digitalbanking.entities.Customer;
@@ -21,9 +24,13 @@ public class ValidationHelper {
     @Autowired
     CustomerRepo customerRepo;
     @Autowired
+    CustomerSecurityQuestionsRepo customerSecurityQuestionsRepo;
+    @Autowired
     SecurityImagesRepo securityImagesRepo;
     @Autowired
     RegexValues regexValues;
+    @Autowired
+    SecurityQuestionsRepo securityQuestionsRepo;
 
     public Customer validateCustomer(String userName,String code){
         Optional<Customer> customer = customerRepo.findByUserName(userName);
@@ -36,7 +43,7 @@ public class ValidationHelper {
     public List<CustomerSecurityQuestions> validateQuestionsWithCustomer(String userName, String code) {
         Customer customer = validateCustomer(userName, code);
         if (customer.getCustomerSecurityQuestions().isEmpty()) {
-            throw new BadRequestExceptions(SECURITY_QUESTION_NOT_FOUND_CODE,"There are no questions found for this registered user ");
+            throw new BadRequestExceptions(SECURITY_QUESTION_NOT_FOUND_CODE,"There are no questions found for this registered user");
         }
         return customer.getCustomerSecurityQuestions();
     }
@@ -79,6 +86,13 @@ public class ValidationHelper {
             throw new BadRequestExceptions(CAPTION_NOT_VALID, CAPTION_NOT_EMPTY_DESCRIPTION);
         if (caption.length() <= 3)
             throw new BadRequestExceptions(CAPTION_NOT_VALID, CAPTION_SIZE_NOT_VALID_DESCRIPTION);
+    }
+
+    public void validateSecurityQuestions(){
+        List<SecurityQuestions> securityQuestionsList = securityQuestionsRepo.findAll();
+        if (securityQuestionsList.isEmpty()){
+            throw new NotFoundExceptions(SEC_QUESTION_NOT_FOUND_CODE,SEC_QUESTION_NOT_FOUND_DESCRIPTION);
+        };
     }
 
 }

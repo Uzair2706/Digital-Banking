@@ -1,0 +1,29 @@
+spring:
+  h2:
+    console:
+      enabled: 'true'
+  datasource:
+    url: jdbc:h2:mem:restDb
+  jpa:
+    defer-datasource-initialization: 'true'
+    show-sql: 'true'
+server:
+  port: 8055
+  error:
+    include-stacktrade: never
+regex:
+  email: ^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$
+  phone: ^[0-9]{10}$
+  username: ^[A-Za-z][A-Za-z0-9_]{4,29}$
+otp:
+  origin: '100000'
+  bound: '999999'
+customer:
+  age: 'https://api.agify.io/?name='
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+

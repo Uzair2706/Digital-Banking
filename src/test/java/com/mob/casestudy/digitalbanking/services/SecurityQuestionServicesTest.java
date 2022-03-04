@@ -3,6 +3,7 @@ package com.mob.casestudy.digitalbanking.services;
 import com.digitalbanking.openapi.model.GetSecurityQuestionsResponse;
 import com.digitalbanking.openapi.model.SecurityQuestion;
 import com.mob.casestudy.digitalbanking.entities.SecurityQuestions;
+import com.mob.casestudy.digitalbanking.helpers.ValidationHelper;
 import com.mob.casestudy.digitalbanking.mappers.SecurityQuestionMapperImpl;
 import com.mob.casestudy.digitalbanking.repositories.SecurityQuestionsRepo;
 import org.assertj.core.api.Assertions;
@@ -25,6 +26,8 @@ class SecurityQuestionServicesTest {
     SecurityQuestionMapperImpl securityQuestionListMapper;
     @Mock
     SecurityQuestionsRepo securityQuestionsRepo;
+    @Mock
+    ValidationHelper validationHelper;
 
     @Test
     void getSecurityQuestions() {
@@ -40,6 +43,7 @@ class SecurityQuestionServicesTest {
         ResponseEntity<GetSecurityQuestionsResponse> actual = securityQuestionServices.getSecurityQuestions();
         ResponseEntity<GetSecurityQuestionsResponse> expected = ResponseEntity.ok().body(getSecurityQuestionsResponse);
         Mockito.verify(securityQuestionsRepo).findAll();
+        Mockito.verify(validationHelper).validateSecurityQuestions();
         Assertions.assertThat(actual).isEqualTo(expected);
 
     }

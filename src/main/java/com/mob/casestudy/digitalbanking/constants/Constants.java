@@ -50,4 +50,6 @@ public final class Constants {
     public static final String GET_CUS_MAND_DESCRIPTION = "All the Mandatory Fields should be validated";
     public static final String GET_CUS_NFD_DESCRIPTION = "Customer is not found with either of the requested parameter";
 
+    public static final String SEC_QUESTION_NOT_FOUND_CODE = "SQE-GET-FIE-001";
+    public static final String SEC_QUESTION_NOT_FOUND_DESCRIPTION = "No Security Questions are found";
 }

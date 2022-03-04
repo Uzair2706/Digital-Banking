@@ -41,7 +41,8 @@ public class CustomerServices {
         Customer customer = customerMapper.creatingCustomerFromCustomerDto(createCustomerRequest);
         String age = getMethod(customer);
         customer.setAge(age);
-        return ResponseEntity.ok().body(new CreateCustomerResponse().id(customerRepo.save(customer).getId()));
+        String id = customerRepo.save(customer).getId();
+        return ResponseEntity.ok().body(new CreateCustomerResponse().id(id));
     }
 
     @Transactional

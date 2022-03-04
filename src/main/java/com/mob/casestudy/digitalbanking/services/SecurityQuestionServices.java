@@ -1,5 +1,6 @@
 package com.mob.casestudy.digitalbanking.services;
 
+import com.mob.casestudy.digitalbanking.helpers.ValidationHelper;
 import com.mob.casestudy.digitalbanking.repositories.SecurityQuestionsRepo;
 import com.mob.casestudy.digitalbanking.mappers.SecurityQuestionMapperImpl;
 import com.digitalbanking.openapi.model.GetSecurityQuestionsResponse;
@@ -14,8 +15,11 @@ public class SecurityQuestionServices {
     SecurityQuestionsRepo securityQuestionsRepo;
     @Autowired
     SecurityQuestionMapperImpl securityQuestionListMapper;
+    @Autowired
+    ValidationHelper validationHelper;
 
     public ResponseEntity<GetSecurityQuestionsResponse> getSecurityQuestions() {
+        validationHelper.validateSecurityQuestions();
         return ResponseEntity.ok().body(securityQuestionListMapper.mapToDto(0,securityQuestionsRepo.findAll()));
     }
 }

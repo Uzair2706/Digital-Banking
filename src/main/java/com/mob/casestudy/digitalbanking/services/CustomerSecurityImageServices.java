@@ -31,7 +31,6 @@ public class CustomerSecurityImageServices {
     @Autowired
     CustomerSecurityImageMapperImpl customerSecurityImageMapper;
 
-
     @Transactional
     public ResponseEntity<Void> storeImages(String userName, CreateCustomerSecurityImageRequest createCustomerSecurityImageRequest) {
         Customer customer = validationHelper.validateCustomer(userName, CUSTOMER_NOT_VALID);

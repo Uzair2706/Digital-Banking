@@ -13,5 +13,8 @@ public interface CustomerSecurityQuestionMapper {
     @Mapping(source = "customerSecurityQuestions.securityQuestions.securityQuestionText" ,target = "securityQuestionText")
     @Mapping(source = "customerSecurityQuestions.securityQuestionAnswer" ,target = "securityQuestionAnswer")
     SecurityQuestion toDto(CustomerSecurityQuestions customerSecurityQuestions);
-    String map(UUID value);
+    default String mapToDto(UUID value){
+        return value.toString();
+    }
+
 }
