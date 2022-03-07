@@ -12,7 +12,7 @@ public final class Constants {
     public static final String SECURITY_QUESTION_NOT_FOUND_CODE = "CSQ-GET-FIE-001";
     public static final String SECURITY_IMAGE_NOT_FOUND_CODE = "CSI-CREATE-FIE-003";
     public static final String USER_NOT_VALID = "CSQ-GET-FIE-002";
-    public static final String CUSTOMER_NOT_VALID = "CSI-GET-FIE-005";
+    public static final String CUSTOMER_NOT_VALID = "CSI-CREATE-FIE-005";
     public static final String CUSTOMER_WITH_INVALID_CODE = "OTP-INI-FIE-001";
     public static final String TEMPLATE_ID_NOT_VALID = "OTP-INI-FIE-002";
     public static final String TEMPLATE_ID_NOT_VALID_DESCRIPTION = "The template id is not valid";

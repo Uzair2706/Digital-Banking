@@ -93,7 +93,6 @@ class ValidationHelperTest {
 
     @Test
     void validateCaption_withInvalidInput_shouldThrowAnException(){
-        Assertions.assertThrows(BadRequestExceptions.class, () -> validationHelper.validateCaption(null));
         Assertions.assertThrows(BadRequestExceptions.class, () -> validationHelper.validateCaption(""));
         Assertions.assertThrows(BadRequestExceptions.class, () -> validationHelper.validateCaption("UK"));
     }

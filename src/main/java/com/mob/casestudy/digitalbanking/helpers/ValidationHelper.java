@@ -2,7 +2,6 @@ package com.mob.casestudy.digitalbanking.helpers;
 
 import com.mob.casestudy.digitalbanking.entities.CustomerSecurityQuestions;
 import com.mob.casestudy.digitalbanking.entities.SecurityQuestions;
-import com.mob.casestudy.digitalbanking.repositories.CustomerSecurityQuestionsRepo;
 import com.mob.casestudy.digitalbanking.repositories.SecurityImagesRepo;
 import com.mob.casestudy.digitalbanking.exceptions.BadRequestExceptions;
 import com.mob.casestudy.digitalbanking.exceptions.NotFoundExceptions;
@@ -23,8 +22,6 @@ public class ValidationHelper {
 
     @Autowired
     CustomerRepo customerRepo;
-    @Autowired
-    CustomerSecurityQuestionsRepo customerSecurityQuestionsRepo;
     @Autowired
     SecurityImagesRepo securityImagesRepo;
     @Autowired
@@ -80,8 +77,6 @@ public class ValidationHelper {
     }
 
     public void validateCaption(String caption) {
-        if (Objects.isNull(caption))
-            throw new BadRequestExceptions(CAPTION_NOT_VALID, CAPTION_NOT_NULL_DESCRIPTION);
         if (caption.isEmpty())
             throw new BadRequestExceptions(CAPTION_NOT_VALID, CAPTION_NOT_EMPTY_DESCRIPTION);
         if (caption.length() <= 3)
@@ -92,7 +87,7 @@ public class ValidationHelper {
         List<SecurityQuestions> securityQuestionsList = securityQuestionsRepo.findAll();
         if (securityQuestionsList.isEmpty()){
             throw new NotFoundExceptions(SEC_QUESTION_NOT_FOUND_CODE,SEC_QUESTION_NOT_FOUND_DESCRIPTION);
-        };
+        }
     }
 
 }

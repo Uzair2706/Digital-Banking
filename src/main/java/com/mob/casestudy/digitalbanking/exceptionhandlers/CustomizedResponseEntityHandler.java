@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import java.util.Objects;
-
 import static com.mob.casestudy.digitalbanking.constants.Constants.*;
 
 @RestControllerAdvice
@@ -34,14 +33,19 @@ public class CustomizedResponseEntityHandler extends ResponseEntityExceptionHand
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        ExceptionResponse exceptionResponse;
+        ExceptionResponse exceptionResponse = new ExceptionResponse();
         if (ex.getMessage().contains(CreateCustomerRequest.class.getName())) {
             exceptionResponse = new ExceptionResponse(CUS_MAND_VALID_CODE, CUS_MAND_VALID_DESCRIPTION);
         }
-        else if (ex.getMessage().contains(CreateCustomerSecurityImageRequest.class.getName())){
-            exceptionResponse = new ExceptionResponse(FIELD_NOT_FOUND_CODE,FIELD_NOT_FOUND_DESCRIPTION);
-        }
-        else {
+        else if (ex.getMessage().contains(CreateCustomerSecurityImageRequest.class.getName())) {
+            if (ex.getMessage().contains("securityImageId"))
+            {
+               exceptionResponse = new ExceptionResponse(FIELD_NOT_FOUND_CODE, FIELD_NOT_FOUND_DESCRIPTION);
+            }
+            else if(ex.getMessage().contains("securityImageCaption")) {
+               exceptionResponse = new ExceptionResponse(CAPTION_NOT_VALID, CAPTION_NOT_NULL_DESCRIPTION);
+            }
+        } else {
             exceptionResponse = new ExceptionResponse("Unexpected Exception", ex.getMessage());
         }
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
@@ -52,15 +56,15 @@ public class CustomizedResponseEntityHandler extends ResponseEntityExceptionHand
         ExceptionResponse exceptionResponse = null;
         if (Objects.requireNonNull(ex.getMessage()).contains(CreateCustomerRequest.class.getName()))
             exceptionResponse = new ExceptionResponse(PREF_LANG_CODE, PREF_LANG_DESCRIPTION);
-        else if (ex.getMessage().contains("PreferredLanguage") || ex.getMessage().contains("Status")){
-            exceptionResponse = new ExceptionResponse(UPD_PREF_CODE,UPD_PREF_DESCRIPTION);
+        else if (ex.getMessage().contains("PreferredLanguage") || ex.getMessage().contains("Status")) {
+            exceptionResponse = new ExceptionResponse(UPD_PREF_CODE, UPD_PREF_DESCRIPTION);
         }
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 
     @Override
     protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        ExceptionResponse exceptionResponse = new ExceptionResponse(UPD_MAND_CODE,UPD_MAND_DESCRIPTION);
+        ExceptionResponse exceptionResponse = new ExceptionResponse(UPD_MAND_CODE, UPD_MAND_DESCRIPTION);
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 }
